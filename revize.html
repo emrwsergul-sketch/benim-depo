@@ -204,7 +204,7 @@
     .demo {
       position: relative;
       display: grid;
-      grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+      grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
       gap: 14px;
       padding: 14px;
       border-radius: 24px;
@@ -215,29 +215,21 @@
     }
 
     .demo-main { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
-    .demo-main .demo-video { flex: 1; aspect-ratio: auto; min-height: 200px; }
 
-    .demo-meta {
+    .demo-list-head {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 10px;
-      padding: 0 4px;
+      padding: 4px 6px 10px;
+      margin-bottom: 4px;
+      border-bottom: 1px solid rgba(248, 239, 226, 0.1);
       font-size: 13px;
     }
 
-    .demo-meta b { font-weight: 600; }
-    .demo-meta span { color: var(--muted); }
-
-    .demo-count {
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: var(--accent-soft);
-      color: var(--accent) !important;
-      font-weight: 600;
-      font-variant-numeric: tabular-nums;
-      white-space: nowrap;
-    }
+    .demo-list-head b { font-weight: 600; }
+    .demo-list-head b .serif { color: var(--mustard); font-size: 1.1em; }
+    .demo-list-head span { color: rgba(248, 239, 226, 0.55); }
 
     .demo-video {
       position: relative;
@@ -333,10 +325,13 @@
       white-space: nowrap;
     }
 
-    .demo-side { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+    .demo-side { display: flex; flex-direction: column; min-width: 0; }
 
     .demo-compose {
-      padding: 14px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 16px;
       border-radius: 14px;
       background: var(--surface-solid);
       border: 1px solid var(--line);
@@ -375,7 +370,7 @@
     .demo-time.flash span { color: var(--accent); transform: scale(1.08); }
 
     .demo-input {
-      min-height: 76px;
+      min-height: 150px;
       padding: 9px 11px;
       border-radius: 10px;
       border: 1px solid var(--line-strong);
@@ -406,6 +401,21 @@
       margin-top: 10px;
     }
 
+    .demo-facts {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin: auto 0 0;
+      padding: 14px 0 0;
+      list-style: none;
+      border-top: 1px solid var(--line);
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .demo-facts li { display: flex; align-items: center; gap: 8px; }
+    .demo-facts svg { flex-shrink: 0; color: var(--accent); }
+
     .demo-send span {
       padding: 8px 16px;
       border-radius: 999px;
@@ -418,15 +428,18 @@
 
     .demo-send span.press { transform: scale(0.92); background: var(--accent); }
 
-    .demo-list {
-      flex: 1;
-      list-style: none;
-      margin: 0;
-      padding: 8px;
-      min-height: 120px;
+    .demo-notes {
+      padding: 10px;
       border-radius: 14px;
       background: var(--deep);
       color: var(--on-dark);
+    }
+
+    .demo-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      min-height: 112px;
       transition: opacity 0.5s;
     }
 
@@ -434,11 +447,11 @@
 
     .demo-list li {
       display: flex;
-      gap: 8px;
+      gap: 10px;
       align-items: baseline;
-      padding: 7px 6px;
+      padding: 7px 8px;
       border-radius: 8px;
-      font-size: 12px;
+      font-size: 13px;
     }
 
     .demo-list li.new { animation: demoIn 0.6s var(--ease); background: rgba(224, 176, 79, 0.16); }
@@ -574,13 +587,11 @@
     .player-empty a { color: var(--mustard); text-decoration: underline; }
 
     /* Sağ sütun: sabit revize kutusu + notlar */
+    .main-col { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+
     .side {
       position: sticky;
       top: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      max-height: calc(100vh - 40px);
       min-width: 0;
     }
 
@@ -668,8 +679,6 @@
     .notes-card {
       display: flex;
       flex-direction: column;
-      flex: 1;
-      min-height: 0;
       background: var(--deep);
       color: var(--on-dark);
       border-color: transparent;
@@ -892,13 +901,17 @@
 
     @media (max-width: 900px) {
       .workspace { grid-template-columns: 1fr; }
-      .side { position: static; max-height: none; }
+      .side { position: static; order: -1; }
+      .main-col { display: contents; }
+      .player-card { order: -2; }
     }
 
     @media (max-width: 620px) {
       .demo { grid-template-columns: 1fr; padding: 10px; }
-      .demo-main .demo-video { flex: none; aspect-ratio: 16 / 9; min-height: 0; }
       .demo-list { min-height: 96px; }
+      .demo-compose { flex: none; }
+      .demo-input { min-height: 96px; }
+      .demo-facts { margin-top: 14px; }
     }
 
     @media (max-width: 520px) {
@@ -960,9 +973,12 @@
             <span class="demo-tc" id="demoTc">00:00 / 12:40</span>
           </div>
         </div>
-        <div class="demo-meta">
-          <div><b>Vlog kurgusu</b> <span>· v2 · 12:40</span></div>
-          <span class="demo-count" id="demoCount">0 revize</span>
+        <div class="demo-notes">
+          <div class="demo-list-head">
+            <b>Revize <span class="serif">notları</span></b>
+            <span id="demoCount">0 revize</span>
+          </div>
+          <ul class="demo-list" id="demoList"></ul>
         </div>
         </div>
         <div class="demo-side">
@@ -971,8 +987,11 @@
             <div class="demo-time" id="demoTime"><small>Sahne zamanı</small><span id="demoTimeVal">00:00</span></div>
             <div class="demo-input" id="demoInput"><span id="demoTyped"></span><span class="demo-caret" id="demoCaret" hidden></span><span class="ph" id="demoPh">Bu sahnede ne değişsin?</span></div>
             <div class="demo-send"><span id="demoSend">Gönder</span></div>
+            <ul class="demo-facts">
+              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M9 2h6"/></svg>Videoyu durdurduğun anın süresi kendiliğinden gelir</li>
+              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h13M3 12h9M3 18h5M17 10v10M14 17l3 3 3-3"/></svg>Revizeler videodaki sırasına göre dizilir</li>
+            </ul>
           </div>
-          <ul class="demo-list" id="demoList"></ul>
         </div>
         <svg class="demo-cursor" id="demoCursor" viewBox="0 0 24 24"><path d="M4 2l16 9.5-7 1.6 4 7.4-3 1.5-4-7.5L4 19z" fill="#fff" stroke="#1d0c10" stroke-width="1.5" stroke-linejoin="round"/></svg>
       </div>
@@ -1006,6 +1025,7 @@
     </form>
 
     <div class="workspace">
+      <div class="main-col">
       <div class="card player-card">
         <div class="player-frame">
           <div id="player"></div>
@@ -1014,6 +1034,20 @@
             <span>Başlamak için yukarıya video linkini yapıştır.</span>
           </div>
         </div>
+      </div>
+
+      <div class="card notes-card">
+        <div class="notes-head">
+          <h2>Revize <span class="serif">notları</span></h2>
+          <span class="notes-count" id="notesCount">0 not</span>
+        </div>
+        <ul class="notes-list" id="notesList"></ul>
+        <div class="notes-foot">
+          <button class="btn btn-sm btn-send" id="sendWa" type="button">WhatsApp ile Haber Ver</button>
+          <button class="btn btn-sm btn-ghost" id="copyLink" type="button">Linki Kopyala</button>
+          <button class="btn btn-sm btn-ghost" id="copyText" type="button">Metin Olarak Kopyala</button>
+        </div>
+      </div>
       </div>
 
       <aside class="side">
@@ -1036,18 +1070,6 @@
           <p class="hint">Yazmaya başlayınca video durur, o sahnenin süresi yukarıya gelir. <kbd>Ctrl</kbd> + <kbd>Enter</kbd> ile gönder.</p>
         </form>
 
-        <div class="card notes-card">
-          <div class="notes-head">
-            <h2>Revize <span class="serif">notları</span></h2>
-            <span class="notes-count" id="notesCount">0 not</span>
-          </div>
-          <ul class="notes-list" id="notesList"></ul>
-          <div class="notes-foot">
-            <button class="btn btn-sm btn-send" id="sendWa" type="button">WhatsApp ile Haber Ver</button>
-            <button class="btn btn-sm btn-ghost" id="copyLink" type="button">Linki Kopyala</button>
-            <button class="btn btn-sm btn-ghost" id="copyText" type="button">Metin Olarak Kopyala</button>
-          </div>
-        </div>
       </aside>
     </div>
   </main>
