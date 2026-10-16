@@ -402,24 +402,6 @@
       margin-top: 10px;
     }
 
-    .demo-facts {
-      grid-column: 1 / -1;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 8px 36px;
-      margin: 0;
-      padding: 12px 0 2px;
-      list-style: none;
-      border-top: 1px solid var(--line);
-      font-family: var(--serif);
-      font-style: italic;
-      font-size: 17px;
-      color: var(--muted);
-    }
-
-    .demo-facts li { display: flex; align-items: center; gap: 8px; }
-    .demo-facts svg { flex-shrink: 0; color: var(--accent); }
 
     .demo-send span {
       padding: 8px 16px;
@@ -916,7 +898,6 @@
       .demo-list { min-height: 96px; }
       .demo-compose { flex: none; }
       .demo-input { min-height: 96px; }
-      .demo-facts { flex-direction: column; align-items: flex-start; gap: 6px; font-size: 15px; }
     }
 
     @media (max-width: 520px) {
@@ -994,10 +975,6 @@
             <div class="demo-send"><span id="demoSend">Gönder</span></div>
           </div>
         </div>
-        <ul class="demo-facts">
-          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M9 2h6"/></svg>Videoyu durdurduğun anın süresi kendiliğinden gelir</li>
-          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h13M3 12h9M3 18h5M17 10v10M14 17l3 3 3-3"/></svg>Revizeler videodaki sırasına göre dizilir</li>
-        </ul>
         <svg class="demo-cursor" id="demoCursor" viewBox="0 0 24 24"><path d="M4 2l16 9.5-7 1.6 4 7.4-3 1.5-4-7.5L4 19z" fill="#fff" stroke="#1d0c10" stroke-width="1.5" stroke-linejoin="round"/></svg>
       </div>
     </div>
