@@ -22,11 +22,6 @@
       --line: rgba(13, 15, 23, 0.08);
       --line-strong: rgba(13, 15, 23, 0.18);
       --on-dark: #f5f6fa;
-      /* Timeline klip renkleri */
-      --clip-sky: #b9cdff;
-      --clip-lilac: #d6cbff;
-      --clip-mint: #bfeedb;
-      --clip-butter: #ffe7a3;
       --radius: 20px;
       --ease: cubic-bezier(0.16, 1, 0.3, 1);
       --sans: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
@@ -230,7 +225,7 @@
 
     /* HERO */
     .hero {
-      padding: 170px 0 56px;
+      padding: 170px 0 88px;
       text-align: center;
       position: relative;
     }
@@ -333,166 +328,6 @@
 
     .trust-text { font-size: 14px; color: var(--muted); line-height: 1.35; }
     .trust-text strong { color: var(--text); font-weight: 600; }
-
-    /* TIMELINE */
-    .timeline {
-      margin: 0 auto 24px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--surface);
-      box-shadow: 0 30px 60px -30px rgba(13, 15, 23, 0.18);
-      overflow: hidden;
-      user-select: none;
-      -webkit-user-select: none;
-    }
-
-    .tl-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 12px 18px;
-      border-bottom: 1px solid var(--line);
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-    .tl-dots { display: flex; gap: 6px; }
-    .tl-dots i { width: 10px; height: 10px; border-radius: 50%; background: var(--surface-2); }
-
-    .tl-title { font-weight: 600; color: var(--text); }
-
-    .tl-tc {
-      font-family: var(--mono);
-      font-size: 13px;
-      color: var(--text);
-      font-variant-numeric: tabular-nums;
-      padding: 4px 10px;
-      border-radius: 8px;
-      background: var(--surface-2);
-    }
-
-    .tl-body {
-      display: grid;
-      grid-template-columns: 52px 1fr;
-      padding: 0 18px 18px 0;
-    }
-
-    .tl-labels { display: flex; flex-direction: column; }
-
-    .tl-labels div {
-      height: 40px;
-      display: grid;
-      place-items: center;
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--muted);
-    }
-
-    .tl-labels div:first-child { height: 28px; }
-
-    .tl-area {
-      position: relative;
-      cursor: ew-resize;
-      touch-action: pan-y;
-      min-width: 0;
-    }
-
-    .tl-ruler {
-      position: relative;
-      height: 28px;
-      background-image: repeating-linear-gradient(90deg, var(--line-strong) 0 1px, transparent 1px calc(100% / 60));
-      background-size: 100% 6px;
-      background-repeat: no-repeat;
-      background-position: 0 100%;
-    }
-
-    .tl-ruler span {
-      position: absolute;
-      top: 6px;
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--muted);
-      transform: translateX(-50%);
-    }
-
-    .tl-ruler span:first-child { transform: none; }
-
-    .tl-track {
-      position: relative;
-      height: 40px;
-      border-top: 1px solid var(--line);
-    }
-
-    .clip {
-      position: absolute;
-      top: 5px;
-      bottom: 5px;
-      border-radius: 7px;
-      padding: 0 8px;
-      display: flex;
-      align-items: center;
-      font-size: 11px;
-      font-weight: 600;
-      color: rgba(13, 15, 23, 0.72);
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      border: 1px solid rgba(13, 15, 23, 0.06);
-      transition: box-shadow 0.2s, transform 0.2s var(--ease), filter 0.2s;
-    }
-
-    .clip.sky { background: var(--clip-sky); }
-    .clip.lilac { background: var(--clip-lilac); }
-    .clip.mint { background: var(--clip-mint); }
-    .clip.butter { background: var(--clip-butter); }
-
-    .clip svg {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0.35;
-    }
-
-    .clip b { position: relative; font-weight: 600; }
-
-    .clip.on {
-      box-shadow: 0 0 0 2px var(--ink);
-      filter: saturate(1.4);
-      z-index: 1;
-    }
-
-    .playhead {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      width: 2px;
-      margin-left: -1px;
-      background: var(--accent);
-      z-index: 3;
-      pointer-events: none;
-    }
-
-    .playhead::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 50%;
-      width: 14px;
-      height: 16px;
-      transform: translateX(-50%);
-      background: var(--accent);
-      clip-path: polygon(0 0, 100% 0, 100% 60%, 50% 100%, 0 60%);
-    }
-
-    .tl-hint {
-      text-align: center;
-      font-size: 13px;
-      color: var(--muted);
-      margin: 0 0 96px;
-    }
 
     /* STATS */
     .stats {
@@ -1123,11 +958,6 @@
       .bands { margin-bottom: 90px; }
       .logo-strip { padding-bottom: 96px; }
       .cta { padding: 72px 20px; }
-      .tl-body { grid-template-columns: 36px 1fr; padding-right: 12px; }
-      .tl-bar .tl-dots, .tl-fps { display: none; }
-      .clip { font-size: 10px; padding: 0 5px; }
-      .tl-ruler span:nth-child(even) { display: none; }
-      .tl-hint { margin-bottom: 72px; }
     }
 
     @media (max-width: 480px) {
@@ -1139,7 +969,6 @@
       .channel-name { font-size: 15px; }
       .contact-row { flex-direction: column; align-items: stretch; }
       .contact-row .btn { width: 100%; }
-      .clip b { display: none; }
     }
   </style>
 </head>
@@ -1182,32 +1011,6 @@
         <div class="trust-text"><strong id="trustCount"></strong> YouTube kanalıyla<br>birlikte çalıştı</div>
       </div>
     </section>
-
-    <!-- TIMELINE -->
-    <div class="container">
-      <div class="timeline reveal" id="timeline">
-        <div class="tl-bar">
-          <div class="tl-dots"><i></i><i></i><i></i></div>
-          <div class="tl-title">Sequence 01</div>
-          <div style="display:flex;gap:10px;align-items:center">
-            <span class="tl-fps">25 fps</span>
-            <span class="tl-tc" id="timecode">00:00:00:00</span>
-          </div>
-        </div>
-        <div class="tl-body">
-          <div class="tl-labels"><div></div><div>V2</div><div>V1</div><div>A1</div><div>A2</div></div>
-          <div class="tl-area" id="tlArea" data-cursor="Sürükle">
-            <div class="tl-ruler" id="tlRuler"></div>
-            <div class="tl-track" data-track="V2"></div>
-            <div class="tl-track" data-track="V1"></div>
-            <div class="tl-track" data-track="A1"></div>
-            <div class="tl-track" data-track="A2"></div>
-            <div class="playhead" id="playhead"></div>
-          </div>
-        </div>
-      </div>
-      <p class="tl-hint reveal">Oynatma çizgisini fareyle gezdir ya da sürükle.</p>
-    </div>
 
     <!-- İSTATİSTİKLER -->
     <div class="container">
@@ -1439,33 +1242,6 @@
       { name: "Hired", url: "https://www.youtube.com/@hiredd/videos", img: "https://yt3.googleusercontent.com/mcrKuGTauzCG6LnIgEwAxNtS4Q0FdVjhyvmi_fxWxwJ4ZHszV05LlAYr-HATmYiyECAJZtKqmQ=s900-c-k-c0x00ffffff-no-rj", label: "67,8 B", subs: 0.0678 }
     ];
 
-    /* ===== TIMELINE KLİPLERİ — s/e saniye cinsinden (toplam 60 sn) ===== */
-    const TIMELINE_SECONDS = 60;
-    const CLIPS = {
-      V2: [
-        { s: 4, e: 11, t: "B-roll", c: "lilac" },
-        { s: 19, e: 23, t: "Text", c: "butter" },
-        { s: 31, e: 38, t: "Zoom", c: "lilac" },
-        { s: 46, e: 53, t: "B-roll", c: "lilac" }
-      ],
-      V1: [
-        { s: 0, e: 6, t: "Hook", c: "sky" },
-        { s: 6, e: 18, t: "A-roll", c: "sky" },
-        { s: 18, e: 21, t: "Jump cut", c: "sky" },
-        { s: 21, e: 35, t: "A-roll", c: "sky" },
-        { s: 35, e: 50, t: "Hikaye", c: "sky" },
-        { s: 50, e: 60, t: "Outro", c: "sky" }
-      ],
-      A1: [
-        { s: 0, e: 60, t: "Diyalog", c: "mint", wave: true }
-      ],
-      A2: [
-        { s: 0, e: 28, t: "Müzik", c: "butter", wave: true },
-        { s: 18, e: 20, t: "SFX", c: "lilac" },
-        { s: 30, e: 60, t: "Müzik 2", c: "butter", wave: true }
-      ]
-    };
-
     const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
@@ -1582,77 +1358,6 @@
       if (expanded) document.getElementById("work").scrollIntoView({ behavior: "smooth" });
     });
 
-    /* ---------- Timeline ---------- */
-    const tlArea = document.getElementById("tlArea");
-    const playhead = document.getElementById("playhead");
-    const timecode = document.getElementById("timecode");
-    const FPS = 25;
-
-    function waveSvg(seed) {
-      let x = seed * 9301 + 49297, bars = "";
-      for (let i = 0; i < 120; i++) {
-        x = (x * 9301 + 49297) % 233280;
-        const h = 4 + (x / 233280) * 22 * (0.6 + 0.4 * Math.sin(i / 6));
-        bars += `<rect x="${i * 5}" y="${15 - h / 2}" width="3" height="${h}" rx="1.5" fill="#0d0f17"/>`;
-      }
-      return `<svg viewBox="0 0 600 30" preserveAspectRatio="none">${bars}</svg>`;
-    }
-
-    let seed = 1;
-    document.querySelectorAll(".tl-track").forEach(track => {
-      track.innerHTML = CLIPS[track.dataset.track].map(c => `
-        <div class="clip ${c.c}" data-s="${c.s}" data-e="${c.e}"
-             style="left:${c.s / TIMELINE_SECONDS * 100}%;width:${(c.e - c.s) / TIMELINE_SECONDS * 100}%">
-          ${c.wave ? waveSvg(seed++) : ""}<b>${c.t}</b>
-        </div>`).join("");
-    });
-
-    const ruler = document.getElementById("tlRuler");
-    for (let s = 0; s < TIMELINE_SECONDS; s += 5) {
-      ruler.insertAdjacentHTML("beforeend",
-        `<span style="left:${s / TIMELINE_SECONDS * 100}%">00:${String(s).padStart(2, "0")}</span>`);
-    }
-
-    const clips = [...document.querySelectorAll(".clip")];
-    const pad = n => String(n).padStart(2, "0");
-
-    function setPlayhead(ratio) {
-      ratio = Math.min(1, Math.max(0, ratio));
-      playhead.style.left = (ratio * 100) + "%";
-      const t = ratio * TIMELINE_SECONDS;
-      const sec = Math.floor(t);
-      const frame = Math.floor((t - sec) * FPS);
-      timecode.textContent = `00:00:${pad(Math.min(sec, 59))}:${pad(frame)}`;
-      clips.forEach(c => c.classList.toggle("on", t >= +c.dataset.s && t < +c.dataset.e));
-    }
-
-    let tlUser = false, tlDragging = false, tlPos = 0.3, tlResume;
-    const ratioFromEvent = e => {
-      const r = tlArea.getBoundingClientRect();
-      return (e.clientX - r.left) / r.width;
-    };
-    const userControl = () => { tlUser = true; clearTimeout(tlResume); };
-    const releaseControl = () => { clearTimeout(tlResume); tlResume = setTimeout(() => { tlUser = false; }, 1500); };
-
-    tlArea.addEventListener("pointerenter", e => { if (e.pointerType === "mouse") userControl(); });
-    tlArea.addEventListener("pointermove", e => {
-      if (e.pointerType === "mouse" || tlDragging) { tlPos = ratioFromEvent(e); setPlayhead(tlPos); }
-    });
-    tlArea.addEventListener("pointerleave", e => { if (e.pointerType === "mouse") releaseControl(); });
-    tlArea.addEventListener("pointerdown", e => {
-      userControl();
-      tlDragging = true;
-      tlArea.setPointerCapture(e.pointerId);
-      tlPos = ratioFromEvent(e);
-      setPlayhead(tlPos);
-    });
-    tlArea.addEventListener("pointerup", e => {
-      tlDragging = false;
-      if (e.pointerType !== "mouse") releaseControl();
-    });
-
-    setPlayhead(tlPos);
-
     /* ---------- Kayan şeritler (kaydırma hızına tepki verir) ---------- */
     const marquees = [...document.querySelectorAll(".marquee")].map(el => ({
       track: el.querySelector(".marquee-track"),
@@ -1687,12 +1392,6 @@
           if (m.x > 0) m.x -= m.half;
           m.track.style.transform = `translate3d(${m.x}px,0,0)`;
         });
-
-        if (!tlUser) {
-          tlPos += dt / 14;
-          if (tlPos > 1) tlPos = 0;
-          setPlayhead(tlPos);
-        }
       }
       requestAnimationFrame(loop);
     }
