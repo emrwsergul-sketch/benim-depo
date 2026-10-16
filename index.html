@@ -441,7 +441,7 @@
     }
 
     /* KOYU VİDEO PANELİ */
-    .work-panel {
+    .dark-panel {
       position: relative;
       margin: 0 16px;
       padding: 110px 0 100px;
@@ -454,15 +454,48 @@
       overflow: hidden;
     }
 
-    .work-panel > .container { position: relative; }
-    .work-panel .section-head p, .work-panel .eyebrow { color: rgba(248, 239, 226, 0.6); }
-    .work-panel h2 .accent, .work-panel .eyebrow::before { color: var(--mustard); }
-    .work-panel .eyebrow::before { background: var(--mustard); }
-    .work-panel .video-card { border-color: rgba(255, 255, 255, 0.1); background: rgba(255, 255, 255, 0.06); }
-    .work-panel .btn { background: transparent; color: var(--on-dark); border-color: rgba(255, 255, 255, 0.25); }
-    .work-panel .btn:hover { background: var(--on-dark); color: var(--ink); border-color: var(--on-dark); }
+    .dark-panel > .container { position: relative; }
+    .dark-panel .section-head p, .dark-panel .eyebrow { color: rgba(248, 239, 226, 0.6); }
+    .dark-panel h2 .accent, .dark-panel .eyebrow::before { color: var(--mustard); }
+    .dark-panel .eyebrow::before { background: var(--mustard); }
+    .dark-panel .video-card { border-color: rgba(255, 255, 255, 0.1); background: rgba(255, 255, 255, 0.06); }
+    .dark-panel .btn { background: transparent; color: var(--on-dark); border-color: rgba(255, 255, 255, 0.25); }
+    .dark-panel .btn:hover { background: var(--on-dark); color: var(--ink); border-color: var(--on-dark); }
 
-    #work { padding-bottom: 120px; }
+    #work, #clients { padding-bottom: 120px; }
+
+    /* Koyu paneldeki referans kartları */
+    .dark-panel .channel-card {
+      background: rgba(248, 239, 226, 0.06);
+      border-color: rgba(248, 239, 226, 0.12);
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+
+    .dark-panel .channel-card::before {
+      background: radial-gradient(260px circle at var(--mx) var(--my), rgba(155, 28, 49, 0.45), transparent 60%);
+    }
+
+    .dark-panel a.channel-card:hover {
+      border-color: rgba(224, 176, 79, 0.45);
+      box-shadow: 0 28px 50px -24px rgba(0, 0, 0, 0.6);
+    }
+
+    .dark-panel .channel-avatar {
+      background: rgba(248, 239, 226, 0.1);
+      border-color: var(--deep);
+      box-shadow: 0 0 0 2px rgba(224, 176, 79, 0.35), 0 12px 24px -10px rgba(0, 0, 0, 0.6);
+    }
+
+    .dark-panel .channel-card:hover .channel-avatar {
+      box-shadow: 0 0 0 3px var(--mustard), 0 16px 30px -10px rgba(0, 0, 0, 0.6);
+    }
+
+    .dark-panel .channel-subs { background: rgba(224, 176, 79, 0.14); color: var(--mustard); }
+    .dark-panel a.channel-card:hover .channel-subs { background: var(--mustard); color: var(--deep); }
+    .dark-panel .channel-arrow { border-color: rgba(248, 239, 226, 0.18); color: rgba(248, 239, 226, 0.6); }
+    .dark-panel a.channel-card:hover .channel-arrow { background: var(--mustard); border-color: var(--mustard); color: var(--deep); }
 
     /* VİDEOLAR */
     .video-grid {
@@ -980,7 +1013,7 @@
       .bands { margin-bottom: 90px; }
       .logo-strip { padding-bottom: 96px; }
       .cta { padding: 72px 20px; }
-      .work-panel { margin: 0 8px; padding: 80px 0 72px; border-radius: 24px; }
+      .dark-panel { margin: 0 8px; padding: 80px 0 72px; border-radius: 24px; }
       .blob { filter: blur(60px); }
     }
 
@@ -1047,7 +1080,7 @@
 
     <!-- VİDEOLAR -->
     <section class="block" id="work">
-      <div class="work-panel">
+      <div class="dark-panel">
       <div class="container">
       <div class="section-head reveal">
         <div>
@@ -1081,7 +1114,9 @@
     </div>
 
     <!-- REFERANSLAR -->
-    <section class="block container" id="clients">
+    <section class="block" id="clients">
+      <div class="dark-panel">
+      <div class="container">
       <div class="section-head reveal">
         <div>
           <div class="eyebrow">Referanslar</div>
@@ -1090,6 +1125,8 @@
         <p>Aktif olarak kurgularını üstlendiğim veya geçmişte birlikte çalıştığım YouTube kanalları.</p>
       </div>
       <div class="channel-grid" id="channelGrid"></div>
+      </div>
+      </div>
     </section>
 
     <!-- YAKLAŞIM -->
