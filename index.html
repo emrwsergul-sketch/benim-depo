@@ -670,12 +670,14 @@
     .channel-card {
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
-      gap: 20px;
-      padding: 22px;
+      align-items: center;
+      text-align: center;
+      gap: 18px;
+      padding: 32px 20px 26px;
       border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--surface);
+      border-radius: 24px;
+      background: rgba(250, 244, 234, 0.82);
+      box-shadow: 0 18px 40px -28px rgba(29, 12, 16, 0.35);
       transition: transform 0.5s var(--ease), border-color 0.4s, box-shadow 0.4s;
       position: relative;
       overflow: hidden;
@@ -698,32 +700,38 @@
     .channel-card:hover::before { opacity: 1; }
 
     a.channel-card:hover {
-      transform: translateY(-4px);
-      border-color: var(--line-strong);
-      box-shadow: 0 20px 40px -24px rgba(29, 12, 16, 0.3);
+      transform: translateY(-6px);
+      border-color: rgba(155, 28, 49, 0.35);
+      box-shadow: 0 28px 50px -24px rgba(155, 28, 49, 0.35);
     }
 
     .channel-top {
       display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
+      justify-content: center;
       width: 100%;
       position: relative;
     }
 
     .channel-avatar {
-      width: 56px;
-      height: 56px;
+      width: 92px;
+      height: 92px;
       border-radius: 50%;
       object-fit: cover;
       background: var(--surface-2);
-      border: 1px solid var(--line);
-      transition: transform 0.4s var(--ease);
+      border: 3px solid var(--surface-solid);
+      box-shadow: 0 0 0 2px rgba(155, 28, 49, 0.25), 0 12px 24px -10px rgba(29, 12, 16, 0.4);
+      transition: transform 0.4s var(--ease), box-shadow 0.4s;
     }
 
-    .channel-card:hover .channel-avatar { transform: scale(1.06) rotate(-4deg); }
+    .channel-card:hover .channel-avatar {
+      transform: scale(1.06);
+      box-shadow: 0 0 0 3px var(--accent), 0 16px 30px -10px rgba(155, 28, 49, 0.5);
+    }
 
     .channel-arrow {
+      position: absolute;
+      top: -16px;
+      right: -6px;
       width: 32px;
       height: 32px;
       border-radius: 50%;
@@ -735,8 +743,8 @@
     }
 
     a.channel-card:hover .channel-arrow {
-      background: var(--ink);
-      border-color: var(--ink);
+      background: var(--accent);
+      border-color: var(--accent);
       color: var(--on-dark);
       transform: rotate(-45deg);
     }
@@ -744,17 +752,30 @@
     .channel-info { min-width: 0; max-width: 100%; position: relative; }
 
     .channel-name {
-      margin: 0 0 4px;
-      font-size: 17px;
-      font-weight: 600;
+      margin: 0 0 10px;
+      font-size: 19px;
+      font-weight: 700;
       letter-spacing: -0.01em;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
 
-    .channel-subs { margin: 0; color: var(--muted); font-size: 14px; }
-    .channel-subs strong { color: var(--text); font-weight: 600; }
+    .channel-subs {
+      display: inline-block;
+      margin: 0;
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 500;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .channel-subs strong { font-weight: 700; }
+
+    a.channel-card:hover .channel-subs { background: var(--accent); color: var(--on-dark); }
 
     /* YAKLAŞIM */
     .approach-grid {
@@ -966,10 +987,11 @@
     @media (max-width: 480px) {
       .hero-actions { flex-direction: column; }
       .hero-actions .btn { width: 100%; }
-      .channel-card { padding: 16px; gap: 16px; }
-      .channel-avatar { width: 46px; height: 46px; }
+      .channel-card { padding: 22px 12px 18px; gap: 14px; }
+      .channel-avatar { width: 68px; height: 68px; }
       .channel-arrow { display: none; }
-      .channel-name { font-size: 15px; }
+      .channel-name { font-size: 15px; margin-bottom: 8px; }
+      .channel-subs { font-size: 12px; padding: 4px 10px; }
       .contact-row { flex-direction: column; align-items: stretch; }
       .contact-row .btn { width: 100%; }
     }
