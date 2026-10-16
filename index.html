@@ -213,6 +213,9 @@
     .brand span { color: var(--muted); font-weight: 500; }
 
     .nav-links { display: flex; gap: 4px; }
+    .nav-actions { display: flex; gap: 6px; }
+    .nav-revize { background: transparent; border-color: var(--line-strong); }
+    .nav-revize:hover { background: var(--surface-solid); }
 
     .nav-links a {
       padding: 8px 14px;
@@ -1004,6 +1007,8 @@
 
     @media (max-width: 768px) {
       .nav-links { display: none; }
+      .nav { padding-left: 16px; }
+      .nav-actions .btn { padding: 0 12px; }
       .hero { padding: 140px 0 80px; }
       .video-grid { grid-template-columns: 1fr; gap: 14px; }
       .channel-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
@@ -1049,7 +1054,13 @@
       <a href="#clients">Referanslar</a>
       <a href="#about">Hakkımda</a>
     </div>
-    <a href="#contact" class="btn btn-dark btn-sm magnetic">İletişime Geç</a>
+    <div class="nav-actions">
+      <a href="revize.html" class="btn btn-sm nav-revize" title="Müşteriler için revize paneli">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+        Revize
+      </a>
+      <a href="#contact" class="btn btn-dark btn-sm magnetic">İletişime Geç</a>
+    </div>
   </nav>
 
   <main id="top">
@@ -1230,6 +1241,7 @@
       <div>© 2026 Emre Ergül — Flowcut Media</div>
       <div class="footer-links">
         <a href="https://instagram.com/emrw.psd" target="_blank" rel="noopener">Instagram</a>
+        <a href="revize.html">Revize Paneli</a>
       </div>
     </div>
   </footer>

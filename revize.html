@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Revize Paneli | Emre Ergül</title>
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* Ana siteyle aynı vişne + hardal palet */
+    :root {
+      --accent: #9b1c31;
+      --accent-soft: rgba(155, 28, 49, 0.1);
+      --mustard: #e0b04f;
+      --bg: #e9dfcf;
+      --surface: rgba(250, 244, 234, 0.7);
+      --surface-solid: #f8f1e5;
+      --surface-2: #ddcfb9;
+      --glass-line: rgba(250, 244, 234, 0.7);
+      --deep: #2a0b12;
+      --ink: #1d0c10;
+      --text: #1d0c10;
+      --muted: #6d5a55;
+      --line: rgba(29, 12, 16, 0.1);
+      --line-strong: rgba(29, 12, 16, 0.2);
+      --on-dark: #f8efe2;
+      --radius: 20px;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+      --sans: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      --serif: "Instrument Serif", Georgia, serif;
+      --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+      color-scheme: light;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    .bg-layer {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.38;
+    }
+
+    .blob-1 { width: 55vw; height: 55vw; background: #c4566a; top: -18vw; left: -12vw; }
+    .blob-2 { width: 45vw; height: 45vw; background: #e0b04f; top: 20vh; right: -14vw; }
+
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea { font-family: inherit; font-size: inherit; color: inherit; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    [hidden] { display: none !important; }
+
+    .container { width: min(1240px, calc(100% - 32px)); margin: 0 auto; }
+
+    .serif { font-family: var(--serif); font-style: italic; font-weight: 400; }
+
+    /* NAV */
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 18px 0;
+    }
+
+    .brand { font-weight: 700; font-size: 15px; }
+    .brand span { color: var(--muted); font-weight: 500; }
+
+    /* BUTONLAR */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 44px;
+      padding: 0 20px;
+      border-radius: 999px;
+      border: 1px solid var(--line-strong);
+      background: var(--surface-solid);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.25s, border-color 0.25s, color 0.25s, transform 0.25s var(--ease);
+      white-space: nowrap;
+    }
+
+    .btn:hover { border-color: var(--ink); }
+    .btn:active { transform: scale(0.97); }
+    .btn-dark { background: var(--ink); border-color: var(--ink); color: var(--on-dark); }
+    .btn-dark:hover { background: var(--accent); border-color: var(--accent); }
+    .btn-sm { min-height: 36px; padding: 0 14px; font-size: 13px; }
+    .btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+    input[type="text"], input[type="password"], input[type="url"], textarea {
+      width: 100%;
+      border: 1px solid var(--line-strong);
+      border-radius: 14px;
+      background: var(--surface-solid);
+      padding: 12px 14px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px var(--accent-soft);
+    }
+
+    textarea { resize: vertical; min-height: 96px; line-height: 1.5; }
+
+    label { display: block; font-size: 13px; font-weight: 600; color: var(--muted); margin-bottom: 6px; }
+
+    /* GİRİŞ KAPISI */
+    .gate {
+      min-height: calc(100vh - 80px);
+      display: grid;
+      place-items: center;
+      padding: 24px 0 80px;
+    }
+
+    .gate-card {
+      width: min(420px, 100%);
+      padding: 36px 32px;
+      border-radius: 28px;
+      background: var(--deep);
+      color: var(--on-dark);
+      text-align: center;
+      box-shadow: 0 40px 80px -40px rgba(29, 12, 16, 0.6);
+    }
+
+    .gate-icon {
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 20px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: rgba(224, 176, 79, 0.15);
+      color: var(--mustard);
+    }
+
+    .gate-card h1 { margin: 0 0 10px; font-size: 30px; letter-spacing: -0.03em; }
+    .gate-card h1 .serif { color: var(--mustard); }
+    .gate-card p { margin: 0 0 24px; color: rgba(248, 239, 226, 0.65); font-size: 15px; }
+
+    .gate-card form { display: flex; flex-direction: column; gap: 12px; text-align: left; }
+
+    .gate-card input {
+      background: rgba(248, 239, 226, 0.08);
+      border-color: rgba(248, 239, 226, 0.2);
+      color: var(--on-dark);
+    }
+
+    .gate-card input:focus { border-color: var(--mustard); box-shadow: 0 0 0 4px rgba(224, 176, 79, 0.2); }
+    .gate-card .btn { background: var(--mustard); border-color: var(--mustard); color: var(--deep); }
+    .gate-card .btn:hover { background: var(--on-dark); border-color: var(--on-dark); }
+
+    .gate-error { min-height: 20px; margin: 0; font-size: 13px; color: #ff9aa8; text-align: center; }
+
+    /* PANEL */
+    .head { padding: 24px 0 28px; }
+
+    .head h1 {
+      margin: 0 0 10px;
+      font-size: clamp(36px, 5vw, 56px);
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+
+    .head h1 .serif { color: var(--accent); }
+
+    .steps {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 20px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .steps li { display: flex; align-items: center; gap: 8px; }
+
+    .steps b {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--accent);
+      color: var(--on-dark);
+      font-size: 12px;
+    }
+
+    .load-bar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .load-bar input { flex: 1; min-width: 0; }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+      gap: 20px;
+      align-items: start;
+      padding-bottom: 60px;
+    }
+
+    .card {
+      border: 1px solid var(--glass-line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 18px 40px -28px rgba(29, 12, 16, 0.35);
+    }
+
+    .player-card { padding: 10px; }
+
+    .player-frame {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      max-width: 100%;
+      border-radius: 14px;
+      overflow: hidden;
+      background: var(--deep);
+    }
+
+    .player-frame iframe, #player { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+    .player-empty {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      align-content: center;
+      gap: 10px;
+      padding: 20px;
+      text-align: center;
+      color: rgba(248, 239, 226, 0.7);
+      font-size: 15px;
+    }
+
+    .player-empty svg { color: var(--mustard); }
+    .player-empty a { color: var(--mustard); text-decoration: underline; }
+
+    .composer { padding: 20px; margin-top: 20px; }
+
+    .composer-top {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .time-box { display: flex; gap: 6px; align-items: stretch; }
+
+    .time-box input {
+      width: 104px;
+      font-family: var(--mono);
+      font-weight: 600;
+      font-size: 16px;
+      text-align: center;
+      color: var(--accent);
+    }
+
+    .icon-btn {
+      width: 44px;
+      flex-shrink: 0;
+      border-radius: 14px;
+      border: 1px solid var(--line-strong);
+      background: var(--surface-solid);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      color: var(--muted);
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .icon-btn:hover { color: var(--accent); border-color: var(--accent); }
+
+    .composer-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+
+    .hint { margin: 0; font-size: 13px; color: var(--muted); }
+    .hint kbd {
+      font-family: var(--mono);
+      font-size: 11px;
+      padding: 2px 6px;
+      border-radius: 6px;
+      border: 1px solid var(--line-strong);
+      background: var(--surface-solid);
+    }
+
+    /* NOTLAR */
+    .notes-card {
+      display: flex;
+      flex-direction: column;
+      max-height: calc(100vh - 40px);
+      position: sticky;
+      top: 20px;
+      background: var(--deep);
+      color: var(--on-dark);
+      border-color: transparent;
+    }
+
+    .notes-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 20px 20px 14px;
+      border-bottom: 1px solid rgba(248, 239, 226, 0.1);
+    }
+
+    .notes-head h2 { margin: 0; font-size: 20px; letter-spacing: -0.02em; }
+    .notes-head h2 .serif { color: var(--mustard); }
+    .notes-count { font-size: 13px; color: rgba(248, 239, 226, 0.55); }
+
+    .notes-list {
+      list-style: none;
+      margin: 0;
+      padding: 8px;
+      overflow-y: auto;
+      flex: 1;
+      min-height: 160px;
+    }
+
+    .notes-empty {
+      padding: 32px 16px;
+      text-align: center;
+      color: rgba(248, 239, 226, 0.5);
+      font-size: 14px;
+    }
+
+    .note {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 14px;
+      transition: background 0.2s;
+      animation: noteIn 0.4s var(--ease);
+    }
+
+    @keyframes noteIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+
+    .note:hover { background: rgba(248, 239, 226, 0.06); }
+    .note.flash { background: rgba(224, 176, 79, 0.18); }
+
+    .note-time {
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 5px 9px;
+      border-radius: 8px;
+      border: 0;
+      background: rgba(224, 176, 79, 0.16);
+      color: var(--mustard);
+      cursor: pointer;
+      height: fit-content;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .note-time:hover { background: var(--mustard); color: var(--deep); }
+
+    .note-body { min-width: 0; }
+
+    .note-text {
+      margin: 2px 0 6px;
+      font-size: 14px;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .note.done .note-text { text-decoration: line-through; opacity: 0.5; }
+
+    .note-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      color: rgba(248, 239, 226, 0.5);
+    }
+
+    .note-meta button {
+      border: 0;
+      background: none;
+      padding: 0;
+      font-size: 12px;
+      color: rgba(248, 239, 226, 0.6);
+      cursor: pointer;
+    }
+
+    .note-meta button:hover { color: var(--mustard); }
+    .note-meta .done-btn.on { color: #8fd6a5; }
+
+    .note-edit textarea {
+      min-height: 70px;
+      font-size: 14px;
+      background: rgba(248, 239, 226, 0.08);
+      border-color: rgba(248, 239, 226, 0.2);
+      color: var(--on-dark);
+      margin-bottom: 8px;
+    }
+
+    .notes-foot {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 14px 16px 16px;
+      border-top: 1px solid rgba(248, 239, 226, 0.1);
+    }
+
+    .notes-foot .btn { flex: 1 1 auto; }
+
+    .notes-foot .btn-send { background: var(--mustard); border-color: var(--mustard); color: var(--deep); }
+    .notes-foot .btn-send:hover { background: var(--on-dark); border-color: var(--on-dark); }
+
+    .notes-foot .btn-ghost {
+      background: transparent;
+      color: var(--on-dark);
+      border-color: rgba(248, 239, 226, 0.22);
+    }
+
+    .notes-foot .btn-ghost:hover { border-color: var(--on-dark); }
+
+    /* PROJELER (yönetici) */
+    .projects { padding: 18px 20px; margin-bottom: 20px; }
+
+    .projects-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .projects-head h2 { margin: 0; font-size: 18px; letter-spacing: -0.02em; }
+    .projects-head span { font-size: 13px; color: var(--muted); }
+
+    .project-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .project {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      padding: 8px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--surface-solid);
+      text-align: left;
+      cursor: pointer;
+      transition: border-color 0.2s, transform 0.25s var(--ease);
+    }
+
+    .project:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .project.active { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+
+    .project img, .project .thumb {
+      width: 72px;
+      aspect-ratio: 16 / 9;
+      flex-shrink: 0;
+      border-radius: 8px;
+      object-fit: cover;
+      background: var(--surface-2);
+    }
+
+    .project-info { min-width: 0; }
+    .project-info b { display: block; font-family: var(--mono); font-size: 12px; font-weight: 600; }
+    .project-info small { font-size: 12px; color: var(--muted); }
+
+    .mode-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 14px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      background: var(--surface-solid);
+      border: 1px solid var(--line);
+      color: var(--muted);
+    }
+
+    .mode-badge i { width: 7px; height: 7px; border-radius: 50%; background: #3f9b5f; }
+    .mode-badge.local i { background: var(--mustard); }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      z-index: 50;
+      transform: translate(-50%, 20px);
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: var(--ink);
+      color: var(--on-dark);
+      font-size: 14px;
+      font-weight: 500;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s, transform 0.4s var(--ease);
+    }
+
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    @media (max-width: 900px) {
+      .workspace { grid-template-columns: 1fr; }
+      .notes-card { position: static; max-height: none; }
+    }
+
+    @media (max-width: 520px) {
+      .load-bar { flex-direction: column; }
+      .composer-top { grid-template-columns: 1fr; }
+      .time-box input { flex: 1; width: auto; }
+      .gate-card { padding: 28px 22px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .note { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-layer" aria-hidden="true">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+  </div>
+
+  <div class="container">
+    <nav class="nav">
+      <a href="index.html" class="brand">Emre <span>Ergül</span></a>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-sm" id="logout" type="button" hidden>Çıkış</button>
+        <a href="index.html" class="btn btn-sm">← Ana Sayfa</a>
+      </div>
+    </nav>
+  </div>
+
+  <!-- GİRİŞ -->
+  <section class="gate container" id="gate">
+    <div class="gate-card">
+      <div class="gate-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+      </div>
+      <h1>Müşteri <span class="serif">Alanı</span></h1>
+      <p>Bu bölüm birlikte çalıştığım kanallar için. Erişim şifresini benden alabilirsin.</p>
+      <form id="gateForm">
+        <label for="gatePass" style="color: rgba(248,239,226,0.6)">Şifre</label>
+        <input type="password" id="gatePass" autocomplete="current-password" required />
+        <button class="btn" type="submit">Giriş Yap</button>
+        <p class="gate-error" id="gateError" role="alert"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- PANEL -->
+  <main class="container" id="app" hidden>
+    <header class="head">
+      <h1>Revize <span class="serif">Paneli</span></h1>
+      <ol class="steps">
+        <li><b>1</b>Liste dışı videonun linkini yapıştır</li>
+        <li><b>2</b>İzlerken durdur, o sahne için notunu yaz</li>
+        <li><b>3</b>Notların kaydedilir, bitince bana haber ver</li>
+      </ol>
+      <div class="mode-badge" id="modeBadge" hidden><i></i><span></span></div>
+    </header>
+
+    <section class="card projects" id="projects" hidden>
+      <div class="projects-head">
+        <h2>Projeler</h2>
+        <span id="projectsInfo"></span>
+      </div>
+      <ul class="project-list" id="projectList"></ul>
+    </section>
+
+    <form class="load-bar" id="loadForm">
+      <label for="videoUrl" hidden>YouTube video linki</label>
+      <input type="text" id="videoUrl" placeholder="https://youtu.be/... veya youtube.com/watch?v=..." autocomplete="off" />
+      <button class="btn btn-dark" type="submit">Videoyu Aç</button>
+    </form>
+
+    <div class="workspace">
+      <div>
+        <div class="card player-card">
+          <div class="player-frame">
+            <div id="player"></div>
+            <div class="player-empty" id="playerEmpty">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              <span>Başlamak için yukarıya video linkini yapıştır.</span>
+            </div>
+          </div>
+        </div>
+
+        <form class="card composer" id="noteForm">
+          <div class="composer-top">
+            <div>
+              <label for="noteTime">Sahne zamanı</label>
+              <div class="time-box">
+                <input type="text" id="noteTime" value="00:00" inputmode="numeric" autocomplete="off" />
+                <button type="button" class="icon-btn" id="grabTime" title="Videonun şu anki zamanını al" aria-label="Videonun şu anki zamanını al">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M9 2h6"/></svg>
+                </button>
+              </div>
+            </div>
+            <div>
+              <label for="author">Adın (isteğe bağlı)</label>
+              <input type="text" id="author" placeholder="Örn. Furkan" autocomplete="name" />
+            </div>
+          </div>
+          <label for="noteText">Revize notu</label>
+          <textarea id="noteText" placeholder="Bu sahnede ne değişsin? Örn. Buradaki geçiş daha hızlı olsun, müzik biraz kısılsın."></textarea>
+          <div class="composer-foot">
+            <p class="hint">Yazmaya başlayınca video durur ve o anın zamanı alınır. <kbd>Ctrl</kbd> + <kbd>Enter</kbd> ile ekle.</p>
+            <button class="btn btn-dark" type="submit">Notu Ekle</button>
+          </div>
+        </form>
+      </div>
+
+      <aside class="card notes-card">
+        <div class="notes-head">
+          <h2>Revize <span class="serif">notları</span></h2>
+          <span class="notes-count" id="notesCount">0 not</span>
+        </div>
+        <ul class="notes-list" id="notesList"></ul>
+        <div class="notes-foot">
+          <button class="btn btn-sm btn-send" id="sendWa" type="button">WhatsApp ile Gönder</button>
+          <button class="btn btn-sm btn-ghost" id="copyLink" type="button">Linki Kopyala</button>
+          <button class="btn btn-sm btn-ghost" id="copyText" type="button">Metin Olarak Kopyala</button>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <script>
+    /* ===== AYARLAR ===== */
+    /* Netlify'da şifreler sunucuda kontrol edilir (REVIZE_PASSWORD / REVIZE_ADMIN_PASSWORD).
+       Aşağıdaki özet sadece site Netlify dışında açıldığında kullanılan yedek şifredir. */
+    const LOCAL_PASSWORD_HASH = "b529eca729dad245e9dfcbec42c6de25304b2602d82d0ab0f3df2813bb8a883c";
+    /* Notların gönderileceği WhatsApp numarası (ülke koduyla, boşluksuz, örn. 905xxxxxxxxx). Boşsa kişi seçilir. */
+    const WHATSAPP_NUMBER = "";
+    const API = "/api/revize";
+
+    const $ = id => document.getElementById(id);
+    const store = {
+      get(key, fallback) { try { const v = localStorage.getItem(key); return v === null ? fallback : JSON.parse(v); } catch (e) { return fallback; } },
+      set(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) {} }
+    };
+    const session = {
+      get() { try { return JSON.parse(sessionStorage.getItem("rv-session") || "null"); } catch (e) { return null; } },
+      set(v) { try { sessionStorage.setItem("rv-session", JSON.stringify(v)); } catch (e) {} },
+      clear() { try { sessionStorage.removeItem("rv-session"); } catch (e) {} }
+    };
+
+    /* ---------- Yardımcılar ---------- */
+    const pad = n => String(n).padStart(2, "0");
+
+    function fmt(t) {
+      t = Math.max(0, Math.floor(t));
+      const h = Math.floor(t / 3600), m = Math.floor((t % 3600) / 60), s = t % 60;
+      return h ? `${h}:${pad(m)}:${pad(s)}` : `${pad(m)}:${pad(s)}`;
+    }
+
+    function parseTime(str) {
+      const parts = String(str).trim().split(/[:.]/).map(Number);
+      if (!parts.length || parts.some(isNaN)) return null;
+      return parts.reduce((acc, n) => acc * 60 + n, 0);
+    }
+
+    function parseVideoId(input) {
+      const v = input.trim();
+      if (/^[\w-]{11}$/.test(v)) return v;
+      try {
+        const url = new URL(v.startsWith("http") ? v : "https://" + v);
+        if (url.hostname.includes("youtu.be")) return url.pathname.slice(1, 12) || null;
+        if (url.searchParams.get("v")) return url.searchParams.get("v").slice(0, 11);
+        const m = url.pathname.match(/\/(embed|shorts|live)\/([\w-]{11})/);
+        if (m) return m[2];
+      } catch (e) {}
+      return null;
+    }
+
+    const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+    const newId = () => Math.random().toString(36).slice(2, 12);
+
+    function encodeNotes(list) {
+      const bytes = new TextEncoder().encode(JSON.stringify(list.map(n => [n.t, n.text, n.author || "", n.done ? 1 : 0])));
+      let bin = "";
+      bytes.forEach(b => { bin += String.fromCharCode(b); });
+      return btoa(bin).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+    }
+
+    function decodeNotes(str) {
+      try {
+        const bin = atob(str.replace(/-/g, "+").replace(/_/g, "/"));
+        const bytes = Uint8Array.from(bin, c => c.charCodeAt(0));
+        return JSON.parse(new TextDecoder().decode(bytes))
+          .map(([t, text, author, done]) => ({ id: newId(), t, text, author, done: !!done }));
+      } catch (e) { return []; }
+    }
+
+    const toast = $("toast");
+    let toastTimer;
+    function showToast(msg) {
+      toast.textContent = msg;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("show"), 2600);
+    }
+
+    async function copy(text, msg) {
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast(msg);
+      } catch (e) {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.left = "-9999px";
+        document.body.appendChild(ta);
+        ta.select();
+        let ok = false;
+        try { ok = document.execCommand("copy"); } catch (err) {}
+        ta.remove();
+        showToast(ok ? msg : "Kopyalanamadı, metni elle seç.");
+      }
+    }
+
+    async function sha256(text) {
+      const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+      return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, "0")).join("");
+    }
+
+    /* ---------- Oturum ----------
+       mode "server": notlar Netlify'da saklanır, şifre sunucuda kontrol edilir.
+       mode "local":  site Netlify dışında açıldıysa notlar bu tarayıcıda tutulur, link ile paylaşılır. */
+    let mode = null, role = null, key = "";
+
+    class AuthError extends Error {}
+
+    async function api(method, params, body) {
+      const qs = params ? "?" + new URLSearchParams(params) : "";
+      const res = await fetch(API + qs, {
+        method,
+        headers: { "x-revize-key": key, ...(body ? { "content-type": "application/json" } : {}) },
+        body: body ? JSON.stringify(body) : undefined
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.status === 401) throw new AuthError(data.error || "Oturum geçersiz.");
+      if (!res.ok) throw new Error(data.error || "Sunucu hatası.");
+      return data;
+    }
+
+    /* Sunucu var mı? Varsa şifreyi orada dener. Yoksa null döner. */
+    async function tryServer(pass) {
+      try {
+        const res = await fetch(API + "?ping", { headers: { "x-revize-key": pass } });
+        const data = await res.json();
+        if (res.status === 401) return { ok: false };
+        if (res.ok && data.ok) return { ok: true, role: data.role };
+        if (data.error) return { ok: false, error: data.error };
+      } catch (e) {}
+      return null;
+    }
+
+    function enter(s) {
+      ({ mode, role, key } = s);
+      session.set(s);
+      $("gate").hidden = true;
+      $("app").hidden = false;
+      $("logout").hidden = false;
+      const badge = $("modeBadge");
+      badge.hidden = false;
+      badge.classList.toggle("local", mode === "local");
+      badge.querySelector("span").textContent = mode === "server"
+        ? (role === "admin" ? "Yönetici · notlar sunucuda kaydediliyor" : "Notların otomatik kaydediliyor")
+        : "Çevrimdışı mod · notlar bu tarayıcıda, link ile gönderilir";
+      start();
+    }
+
+    function logout(msg) {
+      session.clear();
+      location.hash = "";
+      location.reload();
+      if (msg) showToast(msg);
+    }
+
+    $("logout").addEventListener("click", () => logout());
+
+    $("gateForm").addEventListener("submit", async e => {
+      e.preventDefault();
+      const err = $("gateError");
+      const pass = $("gatePass").value;
+      const btn = e.submitter || $("gateForm").querySelector("button");
+      btn.disabled = true;
+      err.textContent = "";
+      try {
+        const server = await tryServer(pass);
+        if (server && server.ok) return enter({ mode: "server", role: server.role, key: pass });
+        if (server && !server.ok) {
+          err.textContent = server.error || "Şifre yanlış. Tekrar dene.";
+          $("gatePass").select();
+          return;
+        }
+        if (await sha256(pass) === LOCAL_PASSWORD_HASH) return enter({ mode: "local", role: "admin", key: "" });
+        err.textContent = "Şifre yanlış. Tekrar dene.";
+        $("gatePass").select();
+      } catch (e2) {
+        err.textContent = "Giriş yapılamadı. Güncel bir tarayıcı dene.";
+      } finally {
+        btn.disabled = false;
+      }
+    });
+
+    /* ---------- Not deposu ---------- */
+    let videoId = null;
+    let notes = [];
+
+    const localKey = v => "rv-notes-" + v;
+
+    async function fetchNotes() {
+      if (mode === "server") notes = (await api("GET", { v: videoId })).notes;
+      else notes = store.get(localKey(videoId), []);
+    }
+
+    async function saveLocal() {
+      store.set(localKey(videoId), notes);
+      const index = store.get("rv-projects", {});
+      index[videoId] = Date.now();
+      store.set("rv-projects", index);
+    }
+
+    async function createNote(n) {
+      if (mode === "server") {
+        notes = (await api("POST", null, { v: videoId, ...n })).notes;
+        return notes.reduce((a, b) => (b.created > (a ? a.created : 0) ? b : a), null)?.id;
+      }
+      const note = { id: newId(), done: false, ...n };
+      notes.push(note);
+      saveLocal();
+      return note.id;
+    }
+
+    async function updateNote(id, patch) {
+      if (mode === "server") { notes = (await api("PATCH", null, { v: videoId, id, ...patch })).notes; return; }
+      Object.assign(notes.find(n => n.id === id), patch);
+      saveLocal();
+    }
+
+    async function deleteNote(id) {
+      if (mode === "server") { notes = (await api("DELETE", null, { v: videoId, id })).notes; return; }
+      notes = notes.filter(n => n.id !== id);
+      saveLocal();
+    }
+
+    /* Hata olursa kullanıcıya göster; oturum düştüyse girişe dön */
+    async function run(fn) {
+      try { return await fn(); }
+      catch (e) {
+        if (e instanceof AuthError) { logout(); return; }
+        showToast(e.message || "Bir şeyler ters gitti, tekrar dene.");
+      }
+    }
+
+    /* ---------- Notları çiz ---------- */
+    const canMarkDone = () => mode === "local" || role === "admin";
+
+    function renderNotes(flashId) {
+      notes.sort((a, b) => a.t - b.t);
+      $("notesCount").textContent = `${notes.length} not`;
+      const list = $("notesList");
+      if (!notes.length) {
+        list.innerHTML = `<li class="notes-empty">${videoId ? "Henüz not yok. Videoyu izlerken durdurup ilk notunu ekle." : "Video açınca notların burada, süreye göre sıralı görünecek."}</li>`;
+        return;
+      }
+      list.innerHTML = notes.map(n => `
+        <li class="note${n.done ? " done" : ""}${n.id === flashId ? " flash" : ""}" data-id="${esc(n.id)}">
+          <button class="note-time" data-act="seek" title="Bu ana git">${fmt(n.t)}</button>
+          <div class="note-body">
+            <p class="note-text">${esc(n.text)}</p>
+            <div class="note-meta">
+              ${n.author ? `<span>${esc(n.author)}</span>` : ""}
+              ${canMarkDone()
+                ? `<button data-act="done" class="done-btn${n.done ? " on" : ""}">${n.done ? "✓ Yapıldı" : "Yapıldı"}</button>`
+                : (n.done ? `<span class="done-btn on">✓ Yapıldı</span>` : "")}
+              <button data-act="edit">Düzenle</button>
+              <button data-act="del">Sil</button>
+            </div>
+          </div>
+        </li>`).join("");
+      if (flashId) {
+        const el = list.querySelector(`[data-id="${flashId}"]`);
+        if (el) {
+          el.scrollIntoView({ block: "nearest", behavior: "smooth" });
+          setTimeout(() => el.classList.remove("flash"), 1200);
+        }
+      }
+    }
+
+    let editing = false;
+
+    $("notesList").addEventListener("click", e => {
+      const btn = e.target.closest("[data-act]");
+      if (!btn) return;
+      const li = btn.closest(".note");
+      const note = notes.find(n => n.id === li.dataset.id);
+      if (!note) return;
+      const act = btn.dataset.act;
+
+      if (act === "seek") seekTo(note.t);
+      if (act === "done") run(async () => { await updateNote(note.id, { done: !note.done }); renderNotes(); });
+      if (act === "del" && confirm(`${fmt(note.t)} notunu silmek istiyor musun?`)) {
+        run(async () => { await deleteNote(note.id); renderNotes(); });
+      }
+      if (act === "edit") {
+        editing = true;
+        const body = li.querySelector(".note-body");
+        body.innerHTML = `
+          <div class="note-edit">
+            <textarea aria-label="Notu düzenle">${esc(note.text)}</textarea>
+            <div class="note-meta">
+              <button data-act="save">Kaydet</button>
+              <button data-act="cancel">Vazgeç</button>
+            </div>
+          </div>`;
+        body.querySelector("textarea").focus();
+      }
+      if (act === "save") {
+        const val = li.querySelector("textarea").value.trim();
+        editing = false;
+        run(async () => { if (val && val !== note.text) await updateNote(note.id, { text: val }); renderNotes(); });
+      }
+      if (act === "cancel") { editing = false; renderNotes(); }
+    });
+
+    /* ---------- Projeler (yönetici) ---------- */
+    async function renderProjects() {
+      let items = [];
+      if (mode === "server") {
+        if (role !== "admin") return;
+        const data = await run(() => api("GET", { projects: 1 }));
+        if (!data) return;
+        items = data.projects;
+      } else {
+        const index = store.get("rv-projects", {});
+        items = Object.entries(index)
+          .map(([v, updated]) => ({ v, updated, count: store.get(localKey(v), []).length }))
+          .sort((a, b) => b.updated - a.updated);
+      }
+      const box = $("projects");
+      box.hidden = !items.length;
+      if (!items.length) return;
+      $("projectsInfo").textContent = mode === "server" ? `${items.length} video` : "Bu tarayıcıdaki videolar";
+      $("projectList").innerHTML = items.map(p => `
+        <li>
+          <button class="project${p.v === videoId ? " active" : ""}" data-v="${esc(p.v)}">
+            <img src="https://img.youtube.com/vi/${esc(p.v)}/mqdefault.jpg" alt="" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'thumb'}))" />
+            <span class="project-info">
+              <b>${esc(p.v)}</b>
+              <small>${p.count} not · ${new Date(p.updated).toLocaleDateString("tr-TR", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}</small>
+            </span>
+          </button>
+        </li>`).join("");
+    }
+
+    $("projectList").addEventListener("click", e => {
+      const btn = e.target.closest("[data-v]");
+      if (btn) openVideo(btn.dataset.v);
+    });
+
+    /* ---------- YouTube oynatıcı ---------- */
+    let player = null, playerReady = false, apiState = "idle", timeLocked = false;
+    const noteTime = $("noteTime"), noteText = $("noteText"), author = $("author");
+
+    function loadApi() {
+      if (apiState !== "idle") return;
+      apiState = "loading";
+      window.onYouTubeIframeAPIReady = () => { apiState = "ready"; if (videoId) createPlayer(); };
+      const tag = document.createElement("script");
+      tag.src = "https://www.youtube.com/iframe_api";
+      tag.onerror = () => { apiState = "failed"; showPlayerFallback(); };
+      document.head.appendChild(tag);
+      setTimeout(() => { if (apiState === "loading") { apiState = "failed"; showPlayerFallback(); } }, 8000);
+    }
+
+    function showPlayerFallback() {
+      if (!videoId) return;
+      const empty = $("playerEmpty");
+      empty.hidden = false;
+      empty.innerHTML = `<span>Video oynatıcı burada yüklenemedi.</span>
+        <a href="https://www.youtube.com/watch?v=${videoId}" target="_blank" rel="noopener">Videoyu YouTube'da aç ↗</a>
+        <span style="font-size:13px">Notlarını yine buraya yazabilirsin; zamanı elle gir.</span>`;
+    }
+
+    function createPlayer() {
+      if (!window.YT || !YT.Player) return;
+      $("playerEmpty").hidden = true;
+      if (player && playerReady) { player.cueVideoById(videoId); return; }
+      if (player) return;
+      player = new YT.Player("player", {
+        videoId,
+        playerVars: { rel: 0, modestbranding: 1, playsinline: 1 },
+        events: { onReady: () => { playerReady = true; if (player.getVideoData().video_id !== videoId) player.cueVideoById(videoId); } }
+      });
+    }
+
+    function currentTime() {
+      return playerReady && player.getCurrentTime ? player.getCurrentTime() : null;
+    }
+
+    function seekTo(t) {
+      if (playerReady) {
+        player.seekTo(t, true);
+        player.playVideo();
+      } else {
+        noteTime.value = fmt(t);
+        showToast(`Videoda ${fmt(t)} anına git`);
+      }
+    }
+
+    /* Zaman kutusu, not yazılmadığı sürece videoyu takip eder */
+    setInterval(() => {
+      if (timeLocked) return;
+      const t = currentTime();
+      if (t !== null) noteTime.value = fmt(t);
+    }, 300);
+
+    function captureMoment() {
+      if (!playerReady) return;
+      if (player.getPlayerState() === YT.PlayerState.PLAYING) player.pauseVideo();
+      if (!timeLocked) {
+        noteTime.value = fmt(player.getCurrentTime());
+        timeLocked = true;
+      }
+    }
+
+    noteText.addEventListener("focus", captureMoment);
+    noteText.addEventListener("input", captureMoment);
+    noteTime.addEventListener("input", () => { timeLocked = true; });
+
+    $("grabTime").addEventListener("click", () => {
+      const t = currentTime();
+      if (t === null) { showToast("Önce bir video aç."); return; }
+      noteTime.value = fmt(t);
+      timeLocked = true;
+    });
+
+    /* ---------- Not ekle ---------- */
+    let adding = false;
+    async function addNote() {
+      if (adding) return;
+      if (!videoId) { showToast("Önce bir video aç."); $("videoUrl").focus(); return; }
+      const text = noteText.value.trim();
+      if (!text) { noteText.focus(); return; }
+      const t = parseTime(noteTime.value);
+      if (t === null) { showToast("Zamanı 07:15 gibi yaz."); noteTime.focus(); return; }
+      adding = true;
+      const id = await run(() => createNote({ t, text, author: author.value.trim() }));
+      adding = false;
+      if (!id) return;
+      renderNotes(id);
+      noteText.value = "";
+      timeLocked = false;
+      noteText.blur();
+      showToast(`${fmt(t)} için not eklendi`);
+    }
+
+    $("noteForm").addEventListener("submit", e => { e.preventDefault(); addNote(); });
+    noteText.addEventListener("keydown", e => {
+      if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); addNote(); }
+    });
+
+    author.addEventListener("change", () => store.set("rv-author", author.value.trim()));
+
+    /* ---------- Video aç ---------- */
+    async function openVideo(id, incoming) {
+      videoId = id;
+      $("videoUrl").value = `https://youtu.be/${id}`;
+      history.replaceState(null, "", `#v=${id}`);
+      loadApi();
+      if (apiState === "ready") createPlayer();
+      if (apiState === "failed") showPlayerFallback();
+
+      await run(fetchNotes);
+      if (incoming && incoming.length) {
+        const seen = new Set(notes.map(n => `${n.t}|${n.text}`));
+        const fresh = incoming.filter(n => !seen.has(`${n.t}|${n.text}`));
+        for (const n of fresh) await run(() => createNote({ t: n.t, text: n.text, author: n.author }));
+        if (fresh.length) showToast(`${fresh.length} revize notu eklendi`);
+      }
+      renderNotes();
+      renderProjects();
+    }
+
+    $("loadForm").addEventListener("submit", e => {
+      e.preventDefault();
+      const id = parseVideoId($("videoUrl").value);
+      if (!id) { showToast("Geçerli bir YouTube linki yapıştır."); return; }
+      openVideo(id);
+    });
+
+    /* Sunucu modunda diğer kişinin notlarını görmek için arada bir yenile */
+    setInterval(() => {
+      if (mode !== "server" || !videoId || editing || document.hidden) return;
+      api("GET", { v: videoId }).then(d => {
+        if (JSON.stringify(d.notes) !== JSON.stringify(notes)) { notes = d.notes; renderNotes(); }
+      }).catch(() => {});
+    }, 20000);
+
+    /* ---------- Paylaş ---------- */
+    function shareLink() {
+      const base = location.href.split("#")[0];
+      const withNotes = mode === "local" && notes.length;
+      return `${base}#v=${videoId}${withNotes ? "&n=" + encodeNotes(notes) : ""}`;
+    }
+
+    function notesText() {
+      const lines = [...notes].sort((a, b) => a.t - b.t)
+        .map(n => `${fmt(n.t)} — ${n.text}${n.author ? ` (${n.author})` : ""}${n.done ? " ✓" : ""}`);
+      return `Revize notları\nVideo: https://youtu.be/${videoId}\n\n${lines.join("\n")}`;
+    }
+
+    function ensureNotes() {
+      if (!videoId) { showToast("Önce bir video aç."); return false; }
+      if (!notes.length) { showToast("Henüz not yok."); return false; }
+      return true;
+    }
+
+    $("copyLink").addEventListener("click", () => {
+      if (!videoId) { showToast("Önce bir video aç."); return; }
+      copy(shareLink(), mode === "server" ? "Panel linki kopyalandı" : "Notlu link kopyalandı. Bana gönderebilirsin.");
+    });
+
+    $("copyText").addEventListener("click", () => {
+      if (ensureNotes()) copy(notesText(), "Notlar metin olarak kopyalandı");
+    });
+
+    $("sendWa").addEventListener("click", () => {
+      if (!ensureNotes()) return;
+      const msg = mode === "server"
+        ? `Revize notlarımı panele ekledim (${notes.length} not).\n${shareLink()}`
+        : `${notesText()}\n\nNotları panelde açmak için:\n${shareLink()}`;
+      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank", "noopener");
+    });
+
+    /* ---------- Başlat ---------- */
+    function start() {
+      author.value = store.get("rv-author", "");
+      const params = new URLSearchParams(location.hash.slice(1));
+      const id = params.get("v");
+      if (id && /^[\w-]{11}$/.test(id)) {
+        openVideo(id, params.get("n") ? decodeNotes(params.get("n")) : []);
+      } else {
+        renderNotes();
+        renderProjects();
+      }
+    }
+
+    const saved = session.get();
+    if (saved && saved.mode) enter(saved);
+  </script>
+</body>
+</html>
