@@ -129,17 +129,19 @@
 
     label { display: block; font-size: 13px; font-weight: 600; color: var(--muted); margin-bottom: 6px; }
 
-    /* GİRİŞ KAPISI */
+    /* GİRİŞ KAPISI + ÖNİZLEME */
     .gate {
-      min-height: calc(100vh - 80px);
       display: grid;
-      place-items: center;
+      grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
+      gap: 40px;
+      align-items: center;
       padding: 24px 0 80px;
+      min-height: calc(100vh - 80px);
     }
 
     .gate-card {
-      width: min(420px, 100%);
-      padding: 36px 32px;
+      width: 100%;
+      padding: 36px 30px;
       border-radius: 28px;
       background: var(--deep);
       color: var(--on-dark);
@@ -175,6 +177,299 @@
     .gate-card .btn:hover { background: var(--on-dark); border-color: var(--on-dark); }
 
     .gate-error { min-height: 20px; margin: 0; font-size: 13px; color: #ff9aa8; text-align: center; }
+
+    .demo-wrap { min-width: 0; }
+
+    .demo-caption {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 12px 4px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .demo-caption i {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: livePulse 1.6s ease-in-out infinite;
+    }
+
+    @keyframes livePulse { 50% { opacity: 0.3; } }
+
+    .demo {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+      gap: 14px;
+      padding: 14px;
+      border-radius: 24px;
+      user-select: none;
+      -webkit-user-select: none;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .demo-main { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+
+    .demo-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 0 4px;
+      font-size: 13px;
+    }
+
+    .demo-meta b { font-weight: 600; }
+    .demo-meta span { color: var(--muted); }
+
+    .demo-count {
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent) !important;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    .demo-video {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      max-width: 100%;
+      border-radius: 14px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 30% 40%, rgba(196, 86, 106, 0.8), transparent 55%),
+        radial-gradient(circle at 75% 65%, rgba(224, 176, 79, 0.6), transparent 50%),
+        var(--deep);
+      background-size: 160% 160%;
+    }
+
+    .demo.playing .demo-video { animation: drift 6s linear infinite; }
+    @keyframes drift { 0% { background-position: 0% 0%; } 50% { background-position: 100% 60%; } 100% { background-position: 0% 0%; } }
+
+    .demo-video img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+    .demo-video::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 55%, rgba(0, 0, 0, 0.65));
+    }
+
+    .demo-big-pause {
+      position: absolute;
+      left: 50%;
+      top: 45%;
+      z-index: 2;
+      width: 64px;
+      height: 64px;
+      margin: -32px 0 0 -32px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: rgba(29, 12, 16, 0.6);
+      backdrop-filter: blur(6px);
+      color: var(--on-dark);
+      opacity: 0;
+      transform: scale(0.6);
+      transition: opacity 0.3s, transform 0.45s var(--ease);
+    }
+
+    .demo.paused .demo-big-pause { opacity: 1; transform: scale(1); }
+
+    .demo-controls {
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      bottom: 10px;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--on-dark);
+    }
+
+    .demo-controls svg { flex-shrink: 0; }
+
+    .demo-bar {
+      position: relative;
+      flex: 1;
+      height: 4px;
+      border-radius: 4px;
+      background: rgba(248, 239, 226, 0.25);
+    }
+
+    .demo-bar i {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      border-radius: 4px;
+      background: var(--accent);
+    }
+
+    .demo-bar b {
+      position: absolute;
+      top: 50%;
+      width: 10px;
+      height: 10px;
+      margin: -5px 0 0 -5px;
+      border-radius: 50%;
+      background: var(--on-dark);
+    }
+
+    .demo-tc {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    .demo-side { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+
+    .demo-compose {
+      padding: 14px;
+      border-radius: 14px;
+      background: var(--surface-solid);
+      border: 1px solid var(--line);
+    }
+
+    .demo-compose h3 { margin: 0 0 10px; font-size: 14px; letter-spacing: -0.01em; }
+    .demo-compose h3 .serif { color: var(--accent); font-size: 1.1em; }
+
+    .demo-time {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+      padding: 6px 12px;
+      border-radius: 10px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-family: var(--mono);
+      font-size: 22px;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      transition: box-shadow 0.3s, transform 0.3s var(--ease);
+    }
+
+    .demo-time small { font-family: var(--sans); font-size: 11px; font-weight: 600; opacity: 0.7; }
+    .demo-time.flash { box-shadow: 0 0 0 3px var(--mustard); transform: scale(1.06); }
+
+    .demo-input {
+      min-height: 58px;
+      padding: 9px 11px;
+      border-radius: 10px;
+      border: 1px solid var(--line-strong);
+      background: #fffaf2;
+      font-size: 13px;
+      line-height: 1.4;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .demo-input.focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+    .demo-input .ph { color: var(--muted); opacity: 0.7; }
+
+    .demo-caret {
+      display: inline-block;
+      width: 1.5px;
+      height: 1em;
+      margin-left: 1px;
+      vertical-align: -2px;
+      background: var(--accent);
+      animation: caret 0.9s steps(1) infinite;
+    }
+
+    @keyframes caret { 50% { opacity: 0; } }
+
+    .demo-send {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 10px;
+    }
+
+    .demo-send span {
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: var(--ink);
+      color: var(--on-dark);
+      font-size: 12px;
+      font-weight: 600;
+      transition: transform 0.15s, background 0.2s;
+    }
+
+    .demo-send span.press { transform: scale(0.92); background: var(--accent); }
+
+    .demo-list {
+      flex: 1;
+      list-style: none;
+      margin: 0;
+      padding: 8px;
+      min-height: 120px;
+      border-radius: 14px;
+      background: var(--deep);
+      color: var(--on-dark);
+      transition: opacity 0.5s;
+    }
+
+    .demo-list.fade { opacity: 0; }
+
+    .demo-list li {
+      display: flex;
+      gap: 8px;
+      align-items: baseline;
+      padding: 7px 6px;
+      border-radius: 8px;
+      font-size: 12px;
+    }
+
+    .demo-list li.new { animation: demoIn 0.6s var(--ease); background: rgba(224, 176, 79, 0.16); }
+    @keyframes demoIn { from { opacity: 0; transform: translateY(-8px) scale(0.97); } to { opacity: 1; transform: none; } }
+
+    .demo-list li b {
+      flex-shrink: 0;
+      padding: 2px 6px;
+      border-radius: 6px;
+      background: rgba(224, 176, 79, 0.18);
+      color: var(--mustard);
+      font-family: var(--mono);
+      font-size: 11px;
+    }
+
+    .demo-list .empty { justify-content: center; color: rgba(248, 239, 226, 0.45); padding: 26px 6px; }
+
+    .demo-cursor {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 5;
+      width: 22px;
+      height: 22px;
+      transition: transform 0.75s var(--ease);
+      filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.35));
+    }
+
+    .demo-cursor::after {
+      content: "";
+      position: absolute;
+      left: -9px;
+      top: -9px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid var(--accent);
+      opacity: 0;
+      transform: scale(0.4);
+    }
+
+    .demo-cursor.click::after { animation: ripple 0.45s ease-out; }
+    @keyframes ripple { from { opacity: 1; transform: scale(0.4); } to { opacity: 0; transform: scale(1.8); } }
 
     /* PANEL */
     .head { padding: 24px 0 28px; }
@@ -266,30 +561,57 @@
     .player-empty svg { color: var(--mustard); }
     .player-empty a { color: var(--mustard); text-decoration: underline; }
 
-    .composer { padding: 20px; margin-top: 20px; }
-
-    .composer-top {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 14px;
-      margin-bottom: 14px;
+    /* Sağ sütun: sabit revize kutusu + notlar */
+    .side {
+      position: sticky;
+      top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-height: calc(100vh - 40px);
+      min-width: 0;
     }
 
-    .time-box { display: flex; gap: 6px; align-items: stretch; }
+    .composer { padding: 20px; flex-shrink: 0; }
 
-    .time-box input {
-      width: 104px;
+    .composer-title { margin: 0 0 14px; font-size: 20px; letter-spacing: -0.02em; }
+    .composer-title .serif { color: var(--accent); font-size: 1.1em; }
+
+    .scene-time {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      padding: 8px 8px 8px 14px;
+      border-radius: 16px;
+      background: var(--accent-soft);
+    }
+
+    .scene-time span { font-size: 13px; font-weight: 600; color: var(--accent); }
+
+    .scene-time input {
+      flex: 1;
+      min-width: 0;
+      padding: 4px 8px;
+      border: 0;
+      background: transparent;
       font-family: var(--mono);
+      font-size: 30px;
       font-weight: 600;
-      font-size: 16px;
-      text-align: center;
       color: var(--accent);
+      font-variant-numeric: tabular-nums;
     }
+
+    .scene-time input:focus { box-shadow: none; background: rgba(255, 255, 255, 0.5); }
+
+    .scene-time.flash { animation: sceneFlash 0.7s var(--ease); }
+    @keyframes sceneFlash { 30% { box-shadow: 0 0 0 3px var(--mustard); } }
 
     .icon-btn {
       width: 44px;
+      height: 44px;
       flex-shrink: 0;
-      border-radius: 14px;
+      border-radius: 12px;
       border: 1px solid var(--line-strong);
       background: var(--surface-solid);
       display: grid;
@@ -301,14 +623,15 @@
 
     .icon-btn:hover { color: var(--accent); border-color: var(--accent); }
 
-    .composer-foot {
+    .composer-row {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-top: 12px;
-      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
     }
+
+    .composer-row input { flex: 1; min-width: 0; }
+
+    .composer .hint { margin-top: 10px; }
 
     .hint { margin: 0; font-size: 13px; color: var(--muted); }
     .hint kbd {
@@ -324,9 +647,8 @@
     .notes-card {
       display: flex;
       flex-direction: column;
-      max-height: calc(100vh - 40px);
-      position: sticky;
-      top: 20px;
+      flex: 1;
+      min-height: 0;
       background: var(--deep);
       color: var(--on-dark);
       border-color: transparent;
@@ -351,7 +673,7 @@
       padding: 8px;
       overflow-y: auto;
       flex: 1;
-      min-height: 160px;
+      min-height: 140px;
     }
 
     .notes-empty {
@@ -542,20 +864,30 @@
 
     .toast.show { opacity: 1; transform: translate(-50%, 0); }
 
+    @media (max-width: 960px) {
+      .gate { grid-template-columns: 1fr; min-height: 0; gap: 32px; }
+      .gate-card { max-width: 440px; margin: 0 auto; }
+    }
+
     @media (max-width: 900px) {
       .workspace { grid-template-columns: 1fr; }
-      .notes-card { position: static; max-height: none; }
+      .side { position: static; max-height: none; }
+    }
+
+    @media (max-width: 620px) {
+      .demo { grid-template-columns: 1fr; padding: 10px; }
+      .demo-list { min-height: 96px; }
     }
 
     @media (max-width: 520px) {
       .load-bar { flex-direction: column; }
-      .composer-top { grid-template-columns: 1fr; }
-      .time-box input { flex: 1; width: auto; }
+      .composer-row { flex-direction: column; }
       .gate-card { padding: 28px 22px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .note { animation: none; }
+      .note, .demo-list li.new, .demo-caption i, .demo.playing .demo-video { animation: none; }
+      .demo-cursor { display: none; }
     }
   </style>
 </head>
@@ -590,6 +922,39 @@
         <p class="gate-error" id="gateError" role="alert"></p>
       </form>
     </div>
+
+    <div class="demo-wrap">
+      <p class="demo-caption"><i></i>Panelin içinden bir önizleme</p>
+      <div class="card demo" id="demo" aria-label="Revize panelinin nasıl çalıştığını gösteren canlı önizleme">
+        <div class="demo-main">
+        <div class="demo-video" id="demoVideo">
+          <img src="https://img.youtube.com/vi/3o_P3-2d-yk/maxresdefault.jpg" alt="" onerror="this.remove()" />
+          <div class="demo-big-pause">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+          </div>
+          <div class="demo-controls">
+            <svg id="demoPlayIcon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            <div class="demo-bar" id="demoBar"><i id="demoBarFill"></i><b id="demoBarKnob"></b></div>
+            <span class="demo-tc" id="demoTc">00:00 / 12:40</span>
+          </div>
+        </div>
+        <div class="demo-meta">
+          <div><b>Vlog kurgusu</b> <span>· v2 · 12:40</span></div>
+          <span class="demo-count" id="demoCount">0 revize</span>
+        </div>
+        </div>
+        <div class="demo-side">
+          <div class="demo-compose">
+            <h3>Bu sahne için <span class="serif">revize gönder</span></h3>
+            <div class="demo-time" id="demoTime"><small>Sahne</small><span id="demoTimeVal">00:00</span></div>
+            <div class="demo-input" id="demoInput"><span id="demoTyped"></span><span class="demo-caret" id="demoCaret" hidden></span><span class="ph" id="demoPh">Bu sahnede ne değişsin?</span></div>
+            <div class="demo-send"><span id="demoSend">Gönder</span></div>
+          </div>
+          <ul class="demo-list" id="demoList"></ul>
+        </div>
+        <svg class="demo-cursor" id="demoCursor" viewBox="0 0 24 24"><path d="M4 2l16 9.5-7 1.6 4 7.4-3 1.5-4-7.5L4 19z" fill="#fff" stroke="#1d0c10" stroke-width="1.5" stroke-linejoin="round"/></svg>
+      </div>
+    </div>
   </section>
 
   <!-- PANEL -->
@@ -619,52 +984,45 @@
     </form>
 
     <div class="workspace">
-      <div>
-        <div class="card player-card">
-          <div class="player-frame">
-            <div id="player"></div>
-            <div class="player-empty" id="playerEmpty">
-              <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-              <span>Başlamak için yukarıya video linkini yapıştır.</span>
-            </div>
+      <div class="card player-card">
+        <div class="player-frame">
+          <div id="player"></div>
+          <div class="player-empty" id="playerEmpty">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            <span>Başlamak için yukarıya video linkini yapıştır.</span>
           </div>
         </div>
-
-        <form class="card composer" id="noteForm">
-          <div class="composer-top">
-            <div>
-              <label for="noteTime">Sahne zamanı</label>
-              <div class="time-box">
-                <input type="text" id="noteTime" value="00:00" inputmode="numeric" autocomplete="off" />
-                <button type="button" class="icon-btn" id="grabTime" title="Videonun şu anki zamanını al" aria-label="Videonun şu anki zamanını al">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M9 2h6"/></svg>
-                </button>
-              </div>
-            </div>
-            <div>
-              <label for="author">Adın (isteğe bağlı)</label>
-              <input type="text" id="author" placeholder="Örn. Furkan" autocomplete="name" />
-            </div>
-          </div>
-          <label for="noteText">Revize notu</label>
-          <textarea id="noteText" placeholder="Bu sahnede ne değişsin? Örn. Buradaki geçiş daha hızlı olsun, müzik biraz kısılsın."></textarea>
-          <div class="composer-foot">
-            <p class="hint">Yazmaya başlayınca video durur ve o anın zamanı alınır. <kbd>Ctrl</kbd> + <kbd>Enter</kbd> ile ekle.</p>
-            <button class="btn btn-dark" type="submit">Notu Ekle</button>
-          </div>
-        </form>
       </div>
 
-      <aside class="card notes-card">
-        <div class="notes-head">
-          <h2>Revize <span class="serif">notları</span></h2>
-          <span class="notes-count" id="notesCount">0 not</span>
-        </div>
-        <ul class="notes-list" id="notesList"></ul>
-        <div class="notes-foot">
-          <button class="btn btn-sm btn-send" id="sendWa" type="button">WhatsApp ile Gönder</button>
-          <button class="btn btn-sm btn-ghost" id="copyLink" type="button">Linki Kopyala</button>
-          <button class="btn btn-sm btn-ghost" id="copyText" type="button">Metin Olarak Kopyala</button>
+      <aside class="side">
+        <form class="card composer" id="noteForm">
+          <h2 class="composer-title">Bu sahne için <span class="serif">revize gönder</span></h2>
+          <div class="scene-time" id="sceneTime">
+            <span>Sahne</span>
+            <input type="text" id="noteTime" value="00:00" inputmode="numeric" autocomplete="off" aria-label="Sahne zamanı" />
+            <button type="button" class="icon-btn" id="grabTime" title="Videonun şu anki zamanını al" aria-label="Videonun şu anki zamanını al">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M9 2h6"/></svg>
+            </button>
+          </div>
+          <textarea id="noteText" rows="3" aria-label="Revize mesajı" placeholder="Bu sahnede ne değişsin? Örn. Bu sahneye zoom girelim."></textarea>
+          <div class="composer-row">
+            <input type="text" id="author" placeholder="Adın (isteğe bağlı)" autocomplete="name" aria-label="Adın" />
+            <button class="btn btn-dark" type="submit">Gönder</button>
+          </div>
+          <p class="hint">Yazmaya başlayınca video durur, o sahnenin süresi yukarıya gelir. <kbd>Ctrl</kbd> + <kbd>Enter</kbd> ile gönder.</p>
+        </form>
+
+        <div class="card notes-card">
+          <div class="notes-head">
+            <h2>Revize <span class="serif">notları</span></h2>
+            <span class="notes-count" id="notesCount">0 not</span>
+          </div>
+          <ul class="notes-list" id="notesList"></ul>
+          <div class="notes-foot">
+            <button class="btn btn-sm btn-send" id="sendWa" type="button">WhatsApp ile Haber Ver</button>
+            <button class="btn btn-sm btn-ghost" id="copyLink" type="button">Linki Kopyala</button>
+            <button class="btn btn-sm btn-ghost" id="copyText" type="button">Metin Olarak Kopyala</button>
+          </div>
         </div>
       </aside>
     </div>
@@ -1071,6 +1429,10 @@
       if (!timeLocked) {
         noteTime.value = fmt(player.getCurrentTime());
         timeLocked = true;
+        const box = $("sceneTime");
+        box.classList.remove("flash");
+        void box.offsetWidth;
+        box.classList.add("flash");
       }
     }
 
@@ -1195,6 +1557,162 @@
         renderProjects();
       }
     }
+
+    /* ---------- Giriş ekranındaki canlı önizleme ---------- */
+    const DEMO_TOTAL = 760; // 12:40
+    const DEMO_SCENES = [
+      { from: 400, at: 432, text: "Bu sahneye zoom girelim" },
+      { at: 631, text: "Müzik burada biraz kısılsın" },
+      { seek: 170, at: 185, text: "Geçiş daha hızlı olsun" }
+    ];
+
+    async function runDemo() {
+      const demo = $("demo");
+      const els = {
+        video: $("demoVideo"), bar: $("demoBar"), fill: $("demoBarFill"), knob: $("demoBarKnob"),
+        tc: $("demoTc"), playIcon: $("demoPlayIcon"), time: $("demoTime"), timeVal: $("demoTimeVal"),
+        input: $("demoInput"), typed: $("demoTyped"), caret: $("demoCaret"), ph: $("demoPh"),
+        send: $("demoSend"), list: $("demoList"), cursor: $("demoCursor")
+      };
+      const sleep = ms => new Promise(r => setTimeout(r, ms));
+      const gateOpen = () => !$("gate").hidden;
+      const waitVisible = async () => { while (document.hidden) await sleep(400); };
+      let t = 0, items = [];
+
+      const PLAY = '<path d="M8 5v14l11-7z"/>';
+      const PAUSE = '<rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/>';
+
+      function setTime(v) {
+        t = v;
+        const pct = (v / DEMO_TOTAL) * 100;
+        els.fill.style.width = pct + "%";
+        els.knob.style.left = pct + "%";
+        els.tc.textContent = `${fmt(v)} / ${fmt(DEMO_TOTAL)}`;
+      }
+
+      function renderList(newText) {
+        items.sort((a, b) => a.t - b.t);
+        $("demoCount").textContent = `${items.length} revize`;
+        els.list.innerHTML = items.length
+          ? items.map(n => `<li class="${n.text === newText ? "new" : ""}"><b>${fmt(n.t)}</b><span>${esc(n.text)}</span></li>`).join("")
+          : `<li class="empty">Revizeler süreye göre burada sıralanır</li>`;
+      }
+
+      function setTyped(text) {
+        els.typed.textContent = text;
+        els.ph.hidden = !!text || els.input.classList.contains("focus");
+      }
+
+      async function moveTo(el, fx = 0.5, fy = 0.5) {
+        const d = demo.getBoundingClientRect(), r = el.getBoundingClientRect();
+        els.cursor.style.transform = `translate(${r.left - d.left + r.width * fx}px, ${r.top - d.top + r.height * fy}px)`;
+        await sleep(800);
+      }
+
+      async function click() {
+        els.cursor.classList.remove("click");
+        void els.cursor.offsetWidth;
+        els.cursor.classList.add("click");
+        await sleep(280);
+      }
+
+      function setPlaying(on) {
+        demo.classList.toggle("playing", on);
+        demo.classList.toggle("paused", !on);
+        els.playIcon.innerHTML = on ? PAUSE : PLAY;
+      }
+
+      async function play(to, ms) {
+        setPlaying(true);
+        const from = t, start = performance.now();
+        await new Promise(resolve => {
+          (function step(now) {
+            const p = Math.min(1, (now - start) / ms);
+            setTime(from + (to - from) * p);
+            p < 1 ? requestAnimationFrame(step) : resolve();
+          })(start);
+        });
+      }
+
+      async function type(text) {
+        for (const ch of text) {
+          setTyped(els.typed.textContent + ch);
+          await sleep(45 + Math.random() * 55);
+        }
+      }
+
+      /* Hareket azaltılmışsa son hali sabit göster */
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        DEMO_SCENES.forEach(s => items.push({ t: s.at, text: s.text }));
+        setTime(432);
+        els.timeVal.textContent = fmt(432);
+        setPlaying(false);
+        renderList();
+        return;
+      }
+
+      els.cursor.style.transform = "translate(92%, 90%)";
+      while (gateOpen()) {
+        items = [];
+        renderList();
+        els.list.classList.remove("fade");
+        setTime(DEMO_SCENES[0].from);
+        els.timeVal.textContent = fmt(t);
+        setTyped("");
+
+        for (const scene of DEMO_SCENES) {
+          await waitVisible();
+          if (!gateOpen()) return;
+
+          if (scene.seek !== undefined) {
+            /* Geriye dönüp önceki bir sahneyi seçiyor */
+            await moveTo(els.bar, scene.seek / DEMO_TOTAL, 0.5);
+            await click();
+            setTime(scene.seek);
+            await sleep(250);
+          }
+
+          moveTo(els.video, 0.55, 0.42);
+          await play(scene.at, 2400);
+          await click();
+
+          /* Durdurur: sahnenin süresi revize kutusuna geçer */
+          setPlaying(false);
+          els.timeVal.textContent = fmt(scene.at);
+          els.time.classList.add("flash");
+          await sleep(700);
+          els.time.classList.remove("flash");
+
+          await moveTo(els.input, 0.2, 0.45);
+          await click();
+          els.input.classList.add("focus");
+          els.caret.hidden = false;
+          setTyped("");
+          await type(scene.text);
+          await sleep(350);
+
+          await moveTo(els.send);
+          await click();
+          els.send.classList.add("press");
+          await sleep(160);
+          els.send.classList.remove("press");
+
+          items.push({ t: scene.at, text: scene.text });
+          renderList(scene.text);
+          els.input.classList.remove("focus");
+          els.caret.hidden = true;
+          setTyped("");
+          await sleep(1300);
+        }
+
+        await moveTo(els.list, 0.85, 0.9);
+        await sleep(2600);
+        els.list.classList.add("fade");
+        await sleep(600);
+      }
+    }
+
+    runDemo();
 
     const saved = session.get();
     if (saved && saved.mode) enter(saved);
