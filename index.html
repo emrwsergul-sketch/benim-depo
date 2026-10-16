@@ -369,7 +369,7 @@
     /* STATS */
     .stats {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       border: 1px solid var(--line);
       border-radius: var(--radius);
       background: var(--surface);
@@ -1092,10 +1092,6 @@
           <div class="stat-num"><span id="statChannels"></span></div>
           <div class="stat-label">Referans kanal</div>
         </div>
-        <div class="stat">
-          <div class="stat-num"><span id="statVideos"></span><span class="accent">+</span></div>
-          <div class="stat-label">Yayınlanmış kurgu</div>
-        </div>
       </div>
     </div>
 
@@ -1310,10 +1306,8 @@
     const totalSubs = Math.floor(CHANNELS.reduce((sum, c) => sum + c.subs, 0));
     const statSubs = document.getElementById("statSubs");
     const statChannels = document.getElementById("statChannels");
-    const statVideos = document.getElementById("statVideos");
     statSubs.textContent = totalSubs + "M";
     statChannels.textContent = CHANNELS.length;
-    statVideos.textContent = VIDEOS.length;
     document.getElementById("trustCount").textContent = CHANNELS.length + "+";
 
     document.getElementById("avatarStack").innerHTML = [...CHANNELS]
@@ -1540,7 +1534,6 @@
           if (entry.target.classList.contains("stats")) {
             countUp(statSubs, totalSubs, "M");
             countUp(statChannels, CHANNELS.length);
-            countUp(statVideos, VIDEOS.length);
           }
           io.unobserve(entry.target);
         });
