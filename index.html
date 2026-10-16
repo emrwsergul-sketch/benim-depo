@@ -13,9 +13,15 @@
     :root {
       --accent: #2f5bff;
       --accent-soft: rgba(47, 91, 255, 0.1);
-      --bg: #f3f4f7;
-      --surface: #ffffff;
-      --surface-2: #eaecf1;
+      --bg: #e6eaf5;
+      --surface: rgba(255, 255, 255, 0.62);
+      --surface-solid: #ffffff;
+      --surface-2: #dce2f0;
+      --glass-line: rgba(255, 255, 255, 0.75);
+      --navy: #0c1230;
+      --blob-1: #9fb5ff;
+      --blob-2: #cdbcff;
+      --blob-3: #a6dff0;
       --ink: #0d0f17;
       --text: #0d0f17;
       --muted: #5d6273;
@@ -63,6 +69,51 @@
       40% { transform: translate(2%, -3%); }
       60% { transform: translate(-2%, -1%); }
       80% { transform: translate(3%, 3%); }
+    }
+
+    /* Arka plan: hareketli renk lekeleri + silik ızgara */
+    .bg-layer {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.75;
+      animation: drift 24s ease-in-out infinite alternate;
+    }
+
+    .blob-1 { width: 55vw; height: 55vw; background: var(--blob-1); top: -18vw; left: -12vw; }
+    .blob-2 { width: 45vw; height: 45vw; background: var(--blob-2); top: 10vh; right: -14vw; animation-delay: -8s; }
+    .blob-3 { width: 40vw; height: 40vw; background: var(--blob-3); bottom: -16vw; left: 25vw; animation-delay: -16s; }
+
+    @keyframes drift {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(6vw, 4vh) scale(1.1); }
+      100% { transform: translate(-4vw, 8vh) scale(0.95); }
+    }
+
+    .grid-lines {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(13, 15, 23, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(13, 15, 23, 0.05) 1px, transparent 1px);
+      background-size: 72px 72px;
+      -webkit-mask-image: radial-gradient(ellipse at 50% 0%, #000 0%, transparent 75%);
+      mask-image: radial-gradient(ellipse at 50% 0%, #000 0%, transparent 75%);
+    }
+
+    /* Cam kartlar */
+    .stats, .channel-card, .approach-card, .contact-row, .nav {
+      backdrop-filter: blur(16px) saturate(1.3);
+      -webkit-backdrop-filter: blur(16px) saturate(1.3);
+      border-color: var(--glass-line);
     }
 
     a { color: inherit; text-decoration: none; }
@@ -158,9 +209,7 @@
       padding: 8px 8px 8px 20px;
       border: 1px solid var(--line);
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.72);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
+      background: rgba(255, 255, 255, 0.55);
       box-shadow: 0 8px 30px rgba(13, 15, 23, 0.06);
     }
 
@@ -204,7 +253,7 @@
       white-space: nowrap;
     }
 
-    .btn:hover { border-color: var(--ink); }
+    .btn:hover { border-color: var(--ink); background: var(--surface-solid); }
 
     .btn-dark {
       background: var(--ink);
@@ -238,10 +287,8 @@
       width: min(1000px, 130vw);
       height: 560px;
       transform: translateX(-50%);
-      background:
-        radial-gradient(closest-side at 35% 45%, rgba(185, 205, 255, 0.7), transparent),
-        radial-gradient(closest-side at 65% 55%, rgba(214, 203, 255, 0.6), transparent);
-      filter: blur(30px);
+      background: radial-gradient(closest-side, rgba(255, 255, 255, 0.55), transparent);
+      filter: blur(20px);
       z-index: -1;
       pointer-events: none;
     }
@@ -459,6 +506,42 @@
       color: var(--muted);
       font-size: 16px;
     }
+
+    /* KOYU VİDEO PANELİ */
+    .work-panel {
+      position: relative;
+      margin: 0 16px;
+      padding: 110px 0 100px;
+      border-radius: 36px;
+      background:
+        radial-gradient(800px 400px at 15% 0%, rgba(47, 91, 255, 0.45), transparent 70%),
+        radial-gradient(700px 400px at 90% 100%, rgba(155, 125, 255, 0.35), transparent 70%),
+        var(--navy);
+      color: var(--on-dark);
+      overflow: hidden;
+    }
+
+    .work-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+      background-size: 72px 72px;
+      -webkit-mask-image: linear-gradient(180deg, #000, transparent 60%);
+      mask-image: linear-gradient(180deg, #000, transparent 60%);
+      pointer-events: none;
+    }
+
+    .work-panel > .container { position: relative; }
+    .work-panel .section-head p, .work-panel .eyebrow { color: rgba(245, 246, 250, 0.6); }
+    .work-panel h2 .accent { color: #9fb4ff; }
+    .work-panel .video-card { border-color: rgba(255, 255, 255, 0.1); background: rgba(255, 255, 255, 0.06); }
+    .work-panel .btn { background: transparent; color: var(--on-dark); border-color: rgba(255, 255, 255, 0.25); }
+    .work-panel .btn:hover { background: var(--on-dark); color: var(--ink); border-color: var(--on-dark); }
+
+    #work { padding-bottom: 120px; }
 
     /* VİDEOLAR */
     .video-grid {
@@ -772,7 +855,7 @@
       transition: background 0.4s, color 0.4s, transform 0.5s var(--ease);
     }
 
-    .approach-card:hover { background: var(--ink); color: var(--on-dark); transform: translateY(-4px); }
+    .approach-card:hover { background: var(--navy); color: var(--on-dark); transform: translateY(-4px); }
     .approach-card:hover p { color: rgba(245, 246, 250, 0.7); }
 
     .approach-icon {
@@ -934,7 +1017,7 @@
 
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      body::before, .w > span, .fade-in, .lightbox, .lb-stage { animation: none; }
+      body::before, .w > span, .fade-in, .lightbox, .lb-stage, .blob { animation: none; }
       .js .reveal { opacity: 1; transform: none; transition: none; }
     }
 
@@ -958,6 +1041,8 @@
       .bands { margin-bottom: 90px; }
       .logo-strip { padding-bottom: 96px; }
       .cta { padding: 72px 20px; }
+      .work-panel { margin: 0 8px; padding: 80px 0 72px; border-radius: 24px; }
+      .blob { filter: blur(60px); }
     }
 
     @media (max-width: 480px) {
@@ -974,6 +1059,13 @@
 </head>
 <body>
   <script>document.documentElement.classList.add("js");</script>
+
+  <div class="bg-layer" aria-hidden="true">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="grid-lines"></div>
+  </div>
 
   <div class="progress" id="progress"></div>
   <div class="cursor" id="cursor"><span></span></div>
@@ -1037,7 +1129,9 @@
     </div>
 
     <!-- VİDEOLAR -->
-    <section class="block container" id="work">
+    <section class="block" id="work">
+      <div class="work-panel">
+      <div class="container">
       <div class="section-head reveal">
         <div>
           <div class="eyebrow">Seçili İşler</div>
@@ -1048,6 +1142,8 @@
       <div class="video-grid" id="videoGrid"></div>
       <div class="more-row">
         <button class="btn" id="moreBtn">Tümünü Göster <span class="arrow">↓</span></button>
+      </div>
+      </div>
       </div>
     </section>
 
