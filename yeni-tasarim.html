@@ -7,7 +7,7 @@
   <meta name="description" content="Emre Ergül — YouTube içerik üreticileri için temiz, güçlü ve dikkat çeken video kurgular." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Big+Shoulders+Stencil+Display:wght@700;800;900&family=Sedgwick+Ave&family=Sedgwick+Ave+Display&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow:wght@400;500;600;700&family=Sedgwick+Ave&family=Sedgwick+Ave+Display&display=swap" rel="stylesheet" />
   <style>
     /* Sprey boya konsepti: site bir sokak duvarı.
        Şablon (stencil) başlıklar, sprey vişne + hardal, kâğıt afişler ve sticker'lar. */
@@ -22,7 +22,7 @@
       --cherry: #e0304e;
       --mustard: #f5b931;
       --line: rgba(239, 233, 223, 0.1);
-      --stencil: "Big Shoulders Stencil Display", "Arial Narrow", Impact, sans-serif;
+      --stencil: "Anton", "Arial Narrow", Impact, sans-serif;
       --body: "Barlow", "Helvetica Neue", Arial, sans-serif;
       --marker: "Sedgwick Ave", "Comic Sans MS", cursive;
       --tag: "Sedgwick Ave Display", "Sedgwick Ave", cursive;
@@ -41,6 +41,7 @@
       background: var(--wall);
       color: var(--chalk);
       -webkit-font-smoothing: antialiased;
+      font-synthesis-weight: none;
       overflow-x: hidden;
     }
 
@@ -67,8 +68,8 @@
       font-family: var(--stencil);
       font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: 0.01em;
-      line-height: 0.86;
+      letter-spacing: 0.005em;
+      line-height: 0.92;
     }
 
     .marker { font-family: var(--marker); font-weight: 400; }
@@ -191,30 +192,61 @@
 
     .revize-link:hover { transform: rotate(0) scale(1.05); }
 
-    /* DUVAR (giriş) */
+    /* DUVAR (giriş): arkada karanlık duvar ve boya, önde başlık */
     .wall {
       position: relative;
       min-height: 100vh;
       min-height: 100svh;
       display: flex;
-      align-items: flex-end;
-      padding: 120px 0 120px;
+      align-items: center;
+      padding: 130px 0 170px;
       overflow: hidden;
-      background:
-        radial-gradient(ellipse at 45% 40%, transparent 25%, rgba(0, 0, 0, 0.7) 100%),
-        var(--brick, none) var(--wall-2);
-      background-size: auto, 480px 216px;
+      background: #0a090a;
       touch-action: pan-y;
       user-select: none;
       -webkit-user-select: none;
+      --lx: 72%;
+      --ly: 32%;
+    }
+
+    .wall-scene {
+      position: absolute;
+      inset: -40px;
+      z-index: 0;
+      background: var(--brick, none) var(--wall-2);
+      background-size: 480px 216px;
+      will-change: transform;
+    }
+
+    #wallCanvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+    /* El feneri: sadece ışığın düştüğü yer aydınlık */
+    .wall-dark {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background:
+        radial-gradient(circle 420px at var(--lx) var(--ly), rgba(255, 222, 180, 0.14), transparent 70%),
+        radial-gradient(circle 700px at var(--lx) var(--ly), rgba(5, 4, 5, 0) 0%, rgba(5, 4, 5, 0.42) 45%, rgba(5, 4, 5, 0.82) 100%);
+    }
+
+    /* Duvarın dibi: yere iner ve sayfaya yumuşakça karışır */
+    .wall-floor {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 50%;
+      z-index: 1;
+      pointer-events: none;
+      background: linear-gradient(to bottom, rgba(17, 15, 17, 0) 0%, rgba(17, 15, 17, 0.6) 40%, rgba(17, 15, 17, 0.92) 70%, var(--wall) 88%);
     }
 
     .wall.aim { cursor: none; }
     .wall a, .wall button { cursor: pointer; }
 
-    #wallCanvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
-
-    .wall-inner { position: relative; z-index: 2; pointer-events: none; }
+    .wall-inner { position: relative; z-index: 3; pointer-events: none; will-change: transform; }
     .wall-inner a, .wall-inner button { pointer-events: auto; }
 
     .wall-tag {
@@ -226,8 +258,9 @@
     }
 
     .hero-title {
-      margin: 0 0 30px;
-      font-size: clamp(68px, 12.5vw, 200px);
+      margin: 0 0 34px;
+      font-size: clamp(58px, 10.4vw, 168px);
+      filter: drop-shadow(0 0 1.5px rgba(0, 0, 0, 0.9)) drop-shadow(0 24px 36px rgba(0, 0, 0, 0.8));
     }
 
     .hero-title > span { display: block; }
@@ -250,7 +283,7 @@
       flex-wrap: wrap;
     }
 
-    .hero-sub { margin: 0; max-width: 520px; color: var(--muted); font-size: 18px; }
+    .hero-sub { margin: 0; max-width: 520px; color: rgba(239, 233, 223, 0.74); font-size: 18px; text-shadow: 0 2px 12px rgba(0, 0, 0, 0.9); }
     .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
 
     /* Sprey kutuları */
@@ -549,36 +582,40 @@
     .poster.is-hidden { display: none; }
     .more-row { display: flex; justify-content: center; margin-top: 64px; }
 
-    /* STICKER'LAR (referanslar) */
+    /* STICKER'LAR (referanslar): satırda en fazla 3 kanal */
     .stickers {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-      gap: 48px 20px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 28px;
     }
 
     .sticker {
       display: flex;
-      flex-direction: column;
       align-items: center;
-      gap: 12px;
-      text-align: center;
-      transform: rotate(var(--r, 0deg));
-      transition: transform 0.4s var(--ease);
+      gap: 26px;
+      min-width: 0;
+      padding: 26px 28px;
+      background: var(--wall-2);
+      border: 1px solid var(--line);
+      transition: transform 0.35s var(--ease), border-color 0.3s, background 0.3s;
     }
 
-    a.sticker:hover { transform: rotate(0) scale(1.08); }
+    a.sticker:hover { transform: translateY(-6px); border-color: rgba(245, 185, 49, 0.5); background: var(--wall-3); }
 
     .sticker-face {
-      position: relative;
-      width: 128px;
-      height: 128px;
+      flex-shrink: 0;
+      width: 132px;
+      height: 132px;
       border-radius: 50%;
       border: 7px solid var(--chalk);
       overflow: hidden;
       background: var(--wall-3);
       box-shadow: 0 14px 26px -8px rgba(0, 0, 0, 0.8);
+      transform: rotate(var(--r, 0deg));
+      transition: transform 0.4s var(--ease);
     }
 
+    a.sticker:hover .sticker-face { transform: rotate(0) scale(1.05); }
     .sticker-face img { width: 100%; height: 100%; object-fit: cover; }
 
     .sticker-initials {
@@ -588,23 +625,40 @@
       height: 100%;
       background: var(--cherry);
       font-family: var(--stencil);
-      font-weight: 900;
       font-size: 46px;
       color: #fff;
     }
 
-    .sticker-name { font-family: var(--marker); font-size: 22px; line-height: 1.15; color: var(--chalk); }
+    .sticker-body { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; min-width: 0; }
+
+    .sticker-name {
+      font-family: var(--marker);
+      font-size: 30px;
+      line-height: 1.05;
+      color: var(--chalk);
+      overflow-wrap: anywhere;
+    }
 
     .sticker-subs {
-      padding: 3px 9px 1px;
+      padding: 3px 10px 1px;
       background: var(--mustard);
       color: var(--paper-ink);
       font-family: var(--stencil);
-      font-weight: 800;
-      font-size: 17px;
-      letter-spacing: 0.04em;
+      font-size: 19px;
+      letter-spacing: 0.03em;
       transform: rotate(-2deg);
     }
+
+    .sticker-go {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+
+    a.sticker:hover .sticker-go { color: var(--mustard); }
 
     /* YAKLAŞIM */
     .method {
@@ -717,7 +771,48 @@
     .contact-sticker.alt { background: var(--cherry); color: #fff; }
     .contact-sticker.alt:hover { background: var(--mustard); color: var(--paper-ink); }
 
+    /* KAPANIŞ: sayfa yine duvarla biter */
+    .outro { position: relative; padding-top: 170px; overflow: hidden; }
+
+    .outro-wall {
+      position: absolute;
+      inset: 0;
+      background: var(--brick, none) var(--wall-2);
+      background-size: 480px 216px;
+      -webkit-mask: linear-gradient(to bottom, transparent 0%, #000 60%);
+      mask: linear-gradient(to bottom, transparent 0%, #000 60%);
+    }
+
+    .outro-wall::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 90% at 50% 100%, rgba(5, 4, 5, 0.1), rgba(5, 4, 5, 0.85) 90%);
+    }
+
+    .outro-inner { position: relative; }
+
+    .outro-quote {
+      margin: 0 0 18px;
+      text-align: center;
+      font-family: var(--marker);
+      font-size: clamp(20px, 2.4vw, 28px);
+      color: var(--mustard);
+      transform: rotate(-2deg);
+    }
+
+    .outro-big {
+      margin: 0 0 40px;
+      text-align: center;
+      font-size: clamp(64px, 14.5vw, 220px);
+      line-height: 0.85;
+      color: transparent;
+      -webkit-text-stroke: 2px rgba(239, 233, 223, 0.3);
+      white-space: nowrap;
+    }
+
     footer {
+      position: relative;
       display: flex;
       justify-content: space-between;
       gap: 16px;
@@ -734,9 +829,9 @@
     /* Ekrana girince beliren öğeler */
     .js .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
     .js .reveal.in { opacity: 1; transform: none; }
-    .js .poster.reveal.in, .js .sticker.reveal.in { transform: rotate(var(--r, 0deg)); }
+    .js .poster.reveal.in { transform: rotate(var(--r, 0deg)); }
     .js .poster.reveal.in:hover { transform: rotate(0) translateY(-8px) scale(1.03); }
-    .js a.sticker.reveal.in:hover { transform: rotate(0) scale(1.08); }
+    .js a.sticker.reveal.in:hover { transform: translateY(-6px); }
 
     /* VİDEO PENCERESİ */
     .lightbox {
@@ -817,6 +912,7 @@
       .posters { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .method { grid-template-columns: 1fr; gap: 10px; }
       .about { grid-template-columns: 1fr; gap: 50px; }
+      .stickers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
 
     @media (max-width: 620px) {
@@ -830,8 +926,11 @@
       .cans-hint { font-size: 15px; }
       .scroll-hint { display: none; }
       .posters { grid-template-columns: 1fr; gap: 46px; }
-      .stickers { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 12px; }
-      .sticker-face { width: 108px; height: 108px; }
+      .stickers { grid-template-columns: 1fr; gap: 16px; }
+      .sticker { padding: 20px; gap: 20px; }
+      .sticker-face { width: 96px; height: 96px; border-width: 6px; }
+      .sticker-name { font-size: 26px; }
+      .wall { padding: 110px 0 150px; }
       section.block { padding: 96px 0; }
       .sec-head { margin-bottom: 44px; }
       .note { padding: 32px 24px 26px; font-size: 17px; }
@@ -867,10 +966,12 @@
   <main>
     <!-- DUVAR -->
     <section class="wall" id="top" aria-label="Giriş">
-      <canvas id="wallCanvas" aria-hidden="true"></canvas>
+      <div class="wall-scene" id="wallScene"><canvas id="wallCanvas" aria-hidden="true"></canvas></div>
+      <div class="wall-dark" aria-hidden="true"></div>
+      <div class="wall-floor" aria-hidden="true"></div>
       <div class="nozzle" id="nozzle" aria-hidden="true"></div>
 
-      <div class="wall-inner container">
+      <div class="wall-inner container" id="wallFront">
         <span class="wall-tag marker">Emre Ergül · Video Editör</span>
         <h1 class="hero-title stencil">
           <span style="--i:0">Temiz, güçlü</span>
@@ -991,15 +1092,20 @@
       </div>
     </section>
 
-    <div class="container">
-      <footer>
-        <span>© 2026 Emre Ergül — Flowcut Media</span>
-        <nav aria-label="Alt bağlantılar">
-          <a href="https://instagram.com/emrw.psd" target="_blank" rel="noopener">Instagram</a>
-          <a href="#revize">Revize Paneli</a>
-        </nav>
-      </footer>
-    </div>
+    <section class="outro" aria-label="Kapanış">
+      <div class="outro-wall" aria-hidden="true"></div>
+      <div class="container outro-inner">
+        <p class="outro-quote">Herkes video çeker, sadece editör izletir.</p>
+        <p class="outro-big stencil" aria-hidden="true">Emre Ergül</p>
+        <footer>
+          <span>© 2026 Emre Ergül — Flowcut Media</span>
+          <nav aria-label="Alt bağlantılar">
+            <a href="https://instagram.com/emrw.psd" target="_blank" rel="noopener">Instagram</a>
+            <a href="#revize">Revize Paneli</a>
+          </nav>
+        </footer>
+      </div>
+    </section>
   </main>
 
   <!-- VİDEO PENCERESİ -->
@@ -1119,6 +1225,8 @@
 
     /* ---------- DUVAR: ziyaretçi sprey sıkar ---------- */
     const wall = $("top");
+    const scene = $("wallScene");
+    const front = $("wallFront");
     const cv = $("wallCanvas");
     const ctx = cv.getContext("2d");
     const nozzle = $("nozzle");
@@ -1131,7 +1239,7 @@
     let loopOn = false;
 
     function sizeWall() {
-      const r = wall.getBoundingClientRect();
+      const r = scene.getBoundingClientRect();
       const old = document.createElement("canvas");
       old.width = cv.width;
       old.height = cv.height;
@@ -1193,9 +1301,15 @@
       });
     }
 
+    /* Boya duvar katmanına (kayan sahne) göre, ışık ve imleç girişe göre konumlanır */
     function localPos(e) {
-      const r = wall.getBoundingClientRect();
+      const r = scene.getBoundingClientRect();
       return { x: e.clientX - r.left, y: e.clientY - r.top };
+    }
+
+    function wallPos(e) {
+      const r = wall.getBoundingClientRect();
+      return { x: e.clientX - r.left, y: e.clientY - r.top, w: r.width, h: r.height };
     }
 
     const overUI = e => !!e.target.closest("a, button, .hero-sub, .cans");
@@ -1204,16 +1318,21 @@
       if (overUI(e) || e.button > 0) return;
       spraying = true;
       pointer = localPos(e);
+      moveLight(wallPos(e));
       $("cansHint").classList.add("gone");
       startLoop();
     });
 
     wall.addEventListener("pointermove", e => {
       const p = localPos(e);
+      const w = wallPos(e);
+      moveLight(w);
       if (e.pointerType === "mouse") {
         wall.classList.add("aim");
         nozzle.classList.toggle("show", !overUI(e));
-        nozzle.style.transform = `translate(${p.x}px, ${p.y}px)`;
+        nozzle.style.transform = `translate(${w.x}px, ${w.y}px)`;
+        par.tx = (w.x / w.w - 0.5) * 2;
+        par.ty = (w.y / w.h - 0.5) * 2;
       }
       if (spraying && pointer) {
         /* Hızlı hareketlerde boşluk kalmasın diye arayı doldur */
@@ -1227,7 +1346,7 @@
     const stopSpray = () => { spraying = false; };
     wall.addEventListener("pointerup", stopSpray);
     wall.addEventListener("pointercancel", stopSpray);
-    wall.addEventListener("pointerleave", () => { stopSpray(); nozzle.classList.remove("show"); });
+    wall.addEventListener("pointerleave", () => { stopSpray(); nozzle.classList.remove("show"); par.tx = 0; par.ty = 0; });
 
     document.querySelectorAll(".can").forEach(can => {
       can.addEventListener("click", () => {
@@ -1266,8 +1385,8 @@
         }
       }
       pts.sort((a, b) => a[0] - b[0] + (Math.random() - 0.5) * 18);
-      const ox = r.width * (r.width > 700 ? 0.74 : 0.5) - off.width / 2;
-      const oy = r.height * (r.width > 700 ? 0.22 : 0.17) - off.height / 2;
+      const ox = 40 + r.width * (r.width > 700 ? 0.74 : 0.5) - off.width / 2;
+      const oy = 40 + r.height * (r.width > 700 ? 0.2 : 0.14) - off.height / 2;
       const color = "#f5b931";
 
       if (reduceMotion) {
@@ -1292,6 +1411,56 @@
     }
 
     if (!finePointer) $("cansHint").textContent = "← parmağınla sık";
+
+    /* ---------- Derinlik: ışık fareyi izler, duvar ve başlık farklı hızda kayar ---------- */
+    const par = { x: 0, y: 0, tx: 0, ty: 0 };
+    const light = { x: 0, y: 0, tx: 0, ty: 0, last: -1e9 };
+    let heroInView = true, heroRunning = false;
+
+    function restLight() {
+      const r = wall.getBoundingClientRect();
+      return { x: r.width * 0.72, y: r.height * 0.32 };
+    }
+
+    function setLight(x, y) {
+      wall.style.setProperty("--lx", `${x}px`);
+      wall.style.setProperty("--ly", `${y}px`);
+    }
+
+    function moveLight(w) {
+      light.tx = w.x;
+      light.ty = w.y;
+      light.last = performance.now();
+      if (reduceMotion) setLight(w.x, w.y);
+    }
+
+    { const d = restLight(); light.x = light.tx = d.x; light.y = light.ty = d.y; setLight(d.x, d.y); }
+
+    function heroFrame(t) {
+      if (!heroInView) { heroRunning = false; return; }
+      /* Fare bir süre durursa ışık kendi kendine hafifçe gezinir */
+      if (t - light.last > 2500) {
+        const d = restLight();
+        light.tx = d.x + Math.cos(t / 2400) * 90;
+        light.ty = d.y + Math.sin(t / 1900) * 50;
+      }
+      light.x += (light.tx - light.x) * 0.12;
+      light.y += (light.ty - light.y) * 0.12;
+      par.x += (par.tx - par.x) * 0.06;
+      par.y += (par.ty - par.y) * 0.06;
+      const sy = Math.min(window.scrollY, 1600);
+      scene.style.transform = `translate3d(${-par.x * 14}px, ${-par.y * 10 + sy * 0.25}px, 0)`;
+      front.style.transform = `translate3d(${par.x * 18}px, ${par.y * 12 - sy * 0.12}px, 0)`;
+      setLight(light.x, light.y);
+      requestAnimationFrame(heroFrame);
+    }
+
+    if (!reduceMotion) {
+      new IntersectionObserver(([entry]) => {
+        heroInView = entry.isIntersecting;
+        if (heroInView && !heroRunning) { heroRunning = true; requestAnimationFrame(heroFrame); }
+      }).observe(wall);
+    }
 
     sizeWall();
     let resizeT;
@@ -1378,12 +1547,15 @@
     const SROT = [-5, 4, -2, 6, -6, 3, -3, 5, -4, 2, -6, 4];
     $("stickers").innerHTML = CHANNELS.map((c, i) => {
       const inner = `
-        <span class="sticker-face"><img src="${c.img}" alt="${esc(c.name)}" loading="lazy" /></span>
-        <span class="sticker-name">${esc(c.name)}</span>
-        <span class="sticker-subs">${esc(c.label)} abone</span>`;
+        <span class="sticker-face" style="--r:${SROT[i % SROT.length]}deg"><img src="${c.img}" alt="${esc(c.name)}" loading="lazy" /></span>
+        <span class="sticker-body">
+          <span class="sticker-name">${esc(c.name)}</span>
+          <span class="sticker-subs">${esc(c.label)} abone</span>
+          ${c.url ? `<span class="sticker-go">Kanala git →</span>` : ""}
+        </span>`;
       return c.url
-        ? `<a class="sticker reveal" style="--r:${SROT[i % SROT.length]}deg" href="${c.url}" target="_blank" rel="noopener">${inner}</a>`
-        : `<div class="sticker reveal" style="--r:${SROT[i % SROT.length]}deg">${inner}</div>`;
+        ? `<a class="sticker reveal" href="${c.url}" target="_blank" rel="noopener">${inner}</a>`
+        : `<div class="sticker reveal">${inner}</div>`;
     }).join("");
 
     document.querySelectorAll(".sticker-face img").forEach(img => {
