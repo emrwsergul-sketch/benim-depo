@@ -1,0 +1,198 @@
+    /* ================= SPREY BOYA TEMASI =================
+       Koyu asfalt zemin, sprey vişne + hardal, boya damlaları. */
+    :root {
+      --accent: #d42c4a;
+      --accent-soft: rgba(212, 44, 74, 0.14);
+      --mustard: #f2b83b;
+      --paint: #f1ebe2;
+      --bg: #0d0c0e;
+      --surface: rgba(255, 255, 255, 0.035);
+      --surface-solid: #18161a;
+      --surface-2: #232026;
+      --glass-line: rgba(255, 255, 255, 0.08);
+      --deep: #141116;
+      --blob-1: #d42c4a;
+      --blob-2: #f2b83b;
+      --blob-3: #7a1426;
+      --ink: #0d0c0e;
+      --text: #f1ebe2;
+      --muted: #a39a9f;
+      --line: rgba(255, 255, 255, 0.08);
+      --line-strong: rgba(255, 255, 255, 0.18);
+      --on-dark: #f1ebe2;
+      --spray: "Rubik Spray Paint", "Anton", Impact, sans-serif;
+      --marker: "Permanent Marker", "Comic Sans MS", cursive;
+      color-scheme: dark;
+    }
+
+    /* Beton dokusu biraz daha belirgin */
+    body::before { opacity: 0.08; }
+    .blob { opacity: 0.12; }
+    .hero::after { display: none; }
+
+    #sprayBg {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    /* Sprey font + aşağı akan boya damlaları */
+    .serif {
+      position: relative;
+      display: inline-block;
+      font-family: var(--spray);
+      font-style: normal;
+      font-weight: 400;
+      letter-spacing: 0;
+    }
+
+    h1 .serif { font-size: 1em; letter-spacing: 0; }
+
+    .serif.accent::after {
+      content: "";
+      position: absolute;
+      left: 6%;
+      right: 6%;
+      top: 82%;
+      height: 0.42em;
+      background: currentColor;
+      -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40' preserveAspectRatio='none'%3E%3Cpath d='M10 0h6v15a3 3 0 0 1-6 0zM42 0h4v27a2 2 0 0 1-4 0zM80 0h5v10a2.5 2.5 0 0 1-5 0zM118 0h4v34a2 2 0 0 1-4 0zM152 0h6v19a3 3 0 0 1-6 0zM184 0h3v9a1.5 1.5 0 0 1-3 0z'/%3E%3C/svg%3E") no-repeat center / 100% 100%;
+      mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40' preserveAspectRatio='none'%3E%3Cpath d='M10 0h6v15a3 3 0 0 1-6 0zM42 0h4v27a2 2 0 0 1-4 0zM80 0h5v10a2.5 2.5 0 0 1-5 0zM118 0h4v34a2 2 0 0 1-4 0zM152 0h6v19a3 3 0 0 1-6 0zM184 0h3v9a1.5 1.5 0 0 1-3 0z'/%3E%3C/svg%3E") no-repeat center / 100% 100%;
+      animation: drip 2.2s cubic-bezier(0.5, 0, 0.2, 1) 1.1s both;
+      pointer-events: none;
+    }
+
+    @keyframes drip {
+      from { clip-path: inset(0 0 100% 0); }
+      to { clip-path: inset(0 0 0 0); }
+    }
+
+    /* Hero: damlalar taşabilsin */
+    .w { padding-bottom: 0.5em; margin-bottom: -0.5em; }
+    h1 { color: var(--paint); }
+    h1 .accent { color: var(--mustard); }
+
+    .hero h1, .section-head h2, .cta h2, .about-text h2 { position: relative; isolation: isolate; }
+
+    /* Başlıkların arkasında sprey bulutu */
+    .section-head h2::before, .about-text h2::before {
+      content: "";
+      position: absolute;
+      inset: -45% -12% -45% -8%;
+      z-index: -1;
+      background: var(--spray-tag-cherry) center / 100% 100% no-repeat;
+      opacity: 0.55;
+      pointer-events: none;
+    }
+
+    .dark-panel .section-head h2::before { background-image: var(--spray-tag-mustard); opacity: 0.35; }
+
+    /* Etiket yazıları: marker ile elle yazılmış gibi */
+    .eyebrow {
+      font-family: var(--marker);
+      font-size: 19px;
+      letter-spacing: 0;
+      text-transform: none;
+      color: var(--mustard) !important;
+      transform: rotate(-2deg);
+      transform-origin: left center;
+    }
+
+    .eyebrow::before { display: none; }
+
+    /* Menü */
+    .nav {
+      background: rgba(18, 16, 19, 0.72);
+      border-color: var(--line);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Butonlar: sprey boya */
+    .btn { background: transparent; color: var(--paint); border: 1.5px solid var(--line-strong); }
+    .btn:hover { border-color: var(--mustard); color: var(--mustard); background: transparent; }
+
+    .btn-dark {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      box-shadow: 0 0 0 0 rgba(212, 44, 74, 0);
+    }
+
+    .btn-dark:hover {
+      background: var(--mustard);
+      border-color: var(--mustard);
+      color: #0d0c0e;
+      box-shadow: 0 0 40px rgba(242, 184, 59, 0.35);
+    }
+
+    .nav-revize { border-color: var(--line-strong); }
+    .nav-revize:hover { background: transparent; }
+
+    .cursor { border-color: var(--paint); }
+
+    /* Kanal şeridi */
+    .logo-strip-label { color: var(--muted); }
+    .logo-item { color: rgba(241, 235, 226, 0.5); }
+    .logo-item:hover { color: var(--paint); }
+
+    /* Koyu paneller: duvar gibi, köşelerde sprey */
+    .dark-panel {
+      background:
+        radial-gradient(700px 380px at 12% 0%, rgba(212, 44, 74, 0.28), transparent 70%),
+        radial-gradient(600px 360px at 92% 100%, rgba(242, 184, 59, 0.12), transparent 70%),
+        #141116;
+      border: 1px solid var(--line);
+    }
+
+    .dark-panel .btn:hover { background: var(--mustard); color: #0d0c0e; border-color: var(--mustard); }
+
+    /* Kanal kartları: duvara yapıştırılmış sticker gibi */
+    .dark-panel .channel-card.reveal.in:nth-child(odd) { transform: rotate(-1.4deg); }
+    .dark-panel .channel-card.reveal.in:nth-child(even) { transform: rotate(1.1deg); }
+    .dark-panel .channel-card.reveal.in:nth-child(3n) { transform: rotate(-0.6deg); }
+    .dark-panel a.channel-card.reveal.in:hover { transform: rotate(0) translateY(-6px); }
+
+    .dark-panel .channel-card {
+      background: #1b181d;
+      border-color: rgba(255, 255, 255, 0.07);
+      box-shadow: 0 14px 30px -18px rgba(0, 0, 0, 0.8);
+    }
+
+    /* Kayan şeritler: sprey boya bantları */
+    .band-a { background: var(--mustard); color: #0d0c0e; }
+    .band-b { background: var(--accent); color: #fff; }
+    .band span { font-family: var(--spray); font-weight: 400; letter-spacing: 0.02em; }
+    .band-a span::after { color: var(--accent); }
+    .band-b span::after { color: var(--mustard); }
+
+    /* Yaklaşım kartları */
+    .approach-card { background: var(--surface-solid); border-color: var(--line); }
+    .approach-card:hover { background: #1d1a1f; border-color: var(--accent); }
+    .approach-card:hover p { color: var(--muted); }
+    .approach-icon { background: var(--accent-soft); color: var(--accent); }
+    .approach-card:hover .approach-icon { background: var(--accent); color: #fff; }
+
+    /* Hakkımda / iletişim */
+    .about-text p strong { color: var(--paint); }
+    .contact-row { background: var(--surface-solid); border-color: var(--line); }
+    .contact-icon { background: var(--surface-2); color: var(--paint); }
+
+    /* Kapanış kutusu */
+    .cta {
+      background: var(--spray-cta) center / cover no-repeat, #141116;
+      border: 1px solid var(--line);
+    }
+
+    .cta::before { opacity: 0.6; }
+    .cta h2 .accent { color: var(--mustard); }
+    .cta .btn { background: var(--paint); color: #0d0c0e; border-color: var(--paint); }
+    .cta .btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+    .toast { border: 1px solid var(--line-strong); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .serif.accent::after { animation: none; }
+    }
