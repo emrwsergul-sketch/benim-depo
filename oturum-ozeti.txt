@@ -1,0 +1,76 @@
+OTURUM ÖZETİ — 27 Ekim 2026
+Başka bir oturuma aktarmak için hazırlandı. Bu dosyayı yeni oturuma yapıştır ya da yükle.
+
+=== KULLANICI ===
+- Emre Ergül, serbest video editör. 5 yıldır çalışıyor (16 yaşından beri).
+- Birçok ünlü/tanınmış içerik üreticisiyle çalışmış.
+- Site: emrekurgu.com.tr  |  Instagram: @emrw.psd
+- Türkçe konuşuyor, kısa ve samimi yazıyor. Cevaplar Türkçe, sade ve doğrudan olmalı.
+- Yüzünü şu an göstermek istemiyor.
+- GitHub deposu: emrwsergul-sketch/benim-depo (PUBLIC).
+
+=== AMAÇ ===
+Yüksek aboneli, özellikle Türkiye'deki eğlence içerikli YouTube kanallarıyla çalışmak (müşteri bulmak).
+Instagram'a içerik atarak bu kitleye ulaşmak istiyor.
+
+=== MEVCUT DURUM ===
+- Instagram'a Claude ile yapılmış, motion graphic'li 1 edit videosu atmış: ~8k izlenme, çok kişi yorum yazmış.
+- Sorun: yorum yazanlar hedef kitle (YouTuber/kanal sahibi) değil, büyük ihtimalle diğer editörler ve meraklılar.
+- Sonuç: içerik çalıştı ama yanlış kitleye gitti.
+
+=== SİTE İNCELEMESİ (emrekurgu.com.tr) ===
+Bölümler: İşler, Referanslar, Hakkımda, Revize paneli, İletişim.
+Ana mesaj: "Temiz, güçlü ve dikkat çeken kurgular." Slogan: "Herkes video çeker, sadece editör izletir."
+Yaklaşım: Kurgu Dili, Tempo, Temiz Edit. Altbilgide "Flowcut Media" adı geçiyor.
+Eksikler / öneriler:
+1. Mesaj genel; sonuç odaklı (izlenme süresi, büyüme) bir hero cümlesi lazım.
+2. Rakam yok: 5 yıl, kurgulanan video sayısı, çalışılan kanalların toplam abonesi.
+3. Vaka çalışması yok.
+4. Referanslar/işler muhtemelen sadece görsel; kanal isimleri yazı olarak da eklenmeli.
+5. Hizmet/paket/süreç (teslim süresi, revize) belirsiz.
+6. İletişim tek kanal (e-posta + Instagram).
+7. "Emre Ergül" ve "Flowcut Media" iki ayrı isim; marka kararı verilmeli.
+Not: @emrw.psd profili okunamadı (Instagram dışarıdan açılmıyor). Bio, öne çıkanlar, gönderiler görülmedi.
+
+=== KARARLAR VE TERCİHLER ===
+- Hedef kitle: Türkiye'deki ünlüler / eğlence içerik üreticileri. Alt tür (komedi, challenge, röportaj/podcast, vlog) henüz seçilmedi.
+- Instagram teması önerisi: "İzleten Detaylar" (slogana bağlı).
+- Kullanıcı "Neden izledin?" tarzı konuşmalı/analizli içerik YAPMAK İSTEMİYOR ("anlatamam, boş yaparım"). O format çıkarıldı.
+- Anlatım gerektirmeyen formatlar tercih edilir: önce/sonra, "ben kurgulasam" (kanalın kısa bir bölümünü yeniden kurgulayıp etiketlemek), timeline hızlandırması.
+- Fikir: Girişte 3-4 saniyelik AI avatar hook'u + arkada yazı, sonrasında yüz yok. Önerim: gerçekçi insan değil, stilize/maskot karakter; gerçek bir ünlüye benzeyen yüz/ses yapma; Instagram "AI info" etiketini kullan. Araç adayları: Midjourney/Flux (görüntü), HeyGen/Hedra/Runway/Kling (canlandırma), ElevenLabs (ses). Güncel karşılaştırma yapılmadı.
+- Referans video: https://www.instagram.com/p/Dcgop0jNCYi/ (hesap: yilmaz.kreatif, "POV: Kurguya kendini fazla kaptırmışsındır", 74 beğeni, 20 yorum).
+  İzlenen içerik: editör masası (Premiere timeline'ı, laptop, klavyede el) girişi, sonra siyah-beyaz vektör illüstrasyon ve büyük kinetik yazı. Avatar yok, yüz yok.
+  Yorumcular çoğunlukla editör/tasarımcı. Biçim kopyalanabilir ama aynı kitle sorunu var.
+- Son karar: Kullanıcı, kendi çalışmasını (bir YouTuber için yaptığı videoyu) aynı biçimde sergilemek istiyor.
+  Önerilen 20-30 sn yapı: (1) masa+timeline girişi ve hook, (2) ham→bitmiş hızlı kesmeler + kısa etiketler, (3) en iyi 2-3 an, (4) "Senin videonu da böyle yaparım. DM." kapanışı.
+  Dikkat: YouTuber'dan izin, müzik telifi (orijinal ses veya lisanslı), varsa tek bir sonuç rakamı.
+
+=== STRATEJİ ÖZETİ ===
+1. İçeriği editörlere değil YouTuber'ın derdine yönelt (izlenme süresi, büyüme).
+2. Yüzsüz güven: ekran kaydı, masa planı, kanıt (rakam, referans, yorum).
+3. Bio müşteriye göre: "YouTuber'lar için video editörü | 5 yıl | [referanslar] | iletişim".
+4. Doğrudan ulaşma: 10k-500k abonelik, kurgusu zayıf kanalları bul; "Hakkında" sekmesindeki iş e-postası; kanalın kendi videosundan 20-30 sn örnek edit gönder.
+5. Süreklilik: haftada 2-3 gönderi, aynı kitleye, birkaç hafta.
+
+=== YAPILACAKLAR ===
+- [ ] Alt tür seç (komedi/challenge/röportaj/vlog).
+- [ ] Hangi YouTuber ve hangi video gösterilecek, izin al; elde ham ve bitmiş hali var mı?
+- [ ] Videonun senaryosu: sahne sahne, ekran yazıları, açıklama metni.
+- [ ] Instagram bio'su (2-3 seçenek).
+- [ ] Türkiye'deki eğlence kanallarından 10-15 hedef kanal listesi (web araştırması).
+- [ ] İlk DM / e-posta metni.
+- [ ] Site güncellemeleri: hero cümlesi, rakamlar, vaka çalışması, isim kararı.
+- [ ] (İsteğe bağlı) AI avatar karakter prompt'u ve ilk 5 hook cümlesi.
+
+=== DEPO DURUMU ===
+- benim-depo public. Yerelde commit: "Instagram ve müşteri bulma stratejisi notu ekle" (instagram-strateji.md). Push EDİLMEDİ.
+- Kullanıcı "neyse dursun ya kim girecek benim githubıma" dedi; push için net bir onay verilmedi. Push öncesi tekrar sor.
+- Bu özet dosyası (oturum-ozeti.txt) de aynı depoda yerel olarak duruyor.
+
+=== TEKNİK NOTLAR ===
+- WebFetch Instagram'ı robots.txt yüzünden açmıyor.
+- Bilgisayara bağlı yerleşik tarayıcıda, Instagram gönderisi için "/embed/" eklenmiş adres (ör. .../p/KOD/embed/) giriş istemeden videoyu oynatıyor.
+- Giriş yapma, hesap oluşturma veya şifre girme işlemi yapılmadı.
+
+=== KÜÇÜK YARDIM: PREMIERE ===
+Proje adını değiştirmek: File → Save As ile yeni adla kaydet (ya da kapatıp .prproj dosyasını klasörden yeniden adlandır). Sekans adı için sekansa sağ tık → Rename (F2).
