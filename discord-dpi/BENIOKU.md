@@ -8,11 +8,13 @@ Hız düşmez, Discord uygulamasında da tarayıcıda da çalışır.
 
 1. Bu `discord-dpi` klasörünü bilgisayarına indir (GitHub'da **Code → Download ZIP**, sonra ZIP'i çıkart).
 2. **`discord-baslat.cmd`** dosyasına çift tıkla → "Evet" de (yönetici izni ister).
-   - İlk seferde GoodbyeDPI'ı kendisi indirir.
-3. Siyah pencere açık kaldığı sürece Discord'u aç, girebilirsin.
+   - `ortak.cmd`'ye tıklama, o yardımcı dosya.
+3. Menüde **1**'e bas. Betik Discord'u kapatıp GoodbyeDPI'ı başlatır, sonra Discord'u kendisi açar.
+4. Discord açılmazsa veya "Update failed" derse pencerede bir tuşa bas, **2**, **3**, **4**'ü sırayla dene.
+5. Siyah pencere açık kaldığı sürece Discord çalışır.
 
 ### Her açılışta otomatik çalışsın istersen
-- **`otomatik-kur.cmd`** → bir kere çalıştır, artık pencereye gerek yok.
+- Önce `discord-baslat.cmd` ile çalışan numarayı bul, sonra **`otomatik-kur.cmd`** → bir kere çalıştır (çalışan ayarı kullanır), artık pencereye gerek yok.
 - Geri almak için **`otomatik-kaldir.cmd`**.
 
 ## Sorun olursa

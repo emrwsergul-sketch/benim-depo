@@ -1,6 +1,8 @@
 @echo off
 chcp 65001 >nul
 net session >nul 2>&1 || (powershell -NoProfile -Command "Start-Process -FilePath '%~f0' -Verb RunAs" & exit /b)
+set "GDPI_CALLER=1"
+taskkill /f /im goodbyedpi.exe >nul 2>&1
 call "%~dp0ortak.cmd" || exit /b 1
 sc stop GoodbyeDPI >nul 2>&1
 sc delete GoodbyeDPI >nul 2>&1
